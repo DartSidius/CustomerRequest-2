@@ -1,0 +1,15 @@
+/**
+ * Created by Vladyslav Lyfar on 04.10.2018.
+ */
+.THIS {
+    margin-top: .5rem !important;
+}
+.THIS .slds-p-around_medium {
+    padding: .5rem;
+}
+.THIS.KanbanCard--cursor--pointer {
+    cursor: pointer;
+}
+.THIS:hover {
+    background-color: aliceblue;
+}

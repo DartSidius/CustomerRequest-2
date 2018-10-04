@@ -1,0 +1,20 @@
+<!--
+ - Created by Vladyslav Lyfar on 04.10.2018.
+ -->
+
+<aura:component description="CreateCardForm">
+    <aura:if isTrue="true">
+        <lightning:button label="+ Add another card" title="+ Add another card" />
+    </aura:if>
+    <aura:if isTrue="false">
+        <div>
+            <div>
+                <lightning:input name="cardName" value="" placeholder="Enter title for this card" />
+            </div>
+            <div class="slds-button-group-row">
+                <lightning:button variant="success" label="Add card" />
+                <lightning:button variant="destructive" label="Cancel" />
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

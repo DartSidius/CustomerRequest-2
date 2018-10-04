@@ -1,0 +1,10 @@
+/**
+ * Created by Vladyslav Lyfar on 04.10.2018.
+ */
+.THIS {
+    background-color: #fff;
+    max-height: 100%;
+}
+.THIS.slds-box {
+    padding: .5rem;
+}

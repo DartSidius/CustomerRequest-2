@@ -1,0 +1,12 @@
+/**
+ * Created by Vladyslav Lyfar on 04.10.2018.
+ */
+.THIS {
+    margin-top: .5rem;
+}
+.THIS .slds-button-group-row {
+    margin-top: .5rem;
+}
+.THIS .slds-form-element__label {
+    display: none;
+}

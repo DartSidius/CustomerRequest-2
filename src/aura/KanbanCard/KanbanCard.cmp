@@ -1,0 +1,9 @@
+<!--
+ - Created by Vladyslav Lyfar on 04.10.2018.
+ -->
+
+<aura:component description="KanbanCard">
+    <div class="slds-card KanbanCard--cursor--pointer">
+        <div class="slds-p-around_medium">Card</div>
+    </div>
+</aura:component>
