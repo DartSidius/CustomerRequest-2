@@ -8,3 +8,11 @@
 .THIS.slds-box {
     padding: .5rem;
 }
+.THIS .KanbanColumn__header {
+
+}
+.THIS .KanbanColumn__header--flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

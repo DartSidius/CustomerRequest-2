@@ -2,5 +2,13 @@
  * Created by Vladyslav Lyfar on 04.10.2018.
  */
 .THIS {
-
+    white-space: nowrap;
+    margin-top: .5rem
+}
+.THIS .KanbanColumnList__column-wrapper {
+    width: 270px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: .5rem
 }

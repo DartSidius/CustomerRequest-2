@@ -1,0 +1,32 @@
+<!--
+ - Created by Vladyslav Lyfar on 05.10.2018.
+ -->
+
+<aura:component description="CreateColumnForm">
+    <aura:registerEvent name="CreateNewColumnEvent" type="c:CreateNewColumnEvent" />
+
+    <aura:attribute type="Boolean" name="isCreateColumnFormOpened" default="false" />
+    <aura:attribute type="KanbanColumn__c" name="newKanbanColumn"
+                    default="{'sobjectType': 'KanbanColumn__c',
+                               'Name': '' }" />
+
+    <aura:if isTrue="{! !v.isCreateColumnFormOpened}">
+        <lightning:button variant="brand"
+                          label="+ Add new column"
+                          title="+ Add new column"
+                          onclick="{! c.showCreateColumnForm }" />
+    </aura:if>
+
+    <aura:if isTrue="{! v.isCreateColumnFormOpened}">
+        <div class="slds-box">
+            <div class="">
+                <lightning:input required="true" aura:id="kanbanColumnName" name="kanbanColumnName" value="{! v.newKanbanColumn.Name }" placeholder="Enter title for this column" />
+            </div>
+            <div class="slds-button-group-row">
+                <lightning:button variant="success" onclick="{! c.createNewColumn }" label="Add column" />
+                <lightning:button variant="destructive" onclick="{! c.showCreateColumnForm }" label="Cancel" />
+            </div>
+        </div>
+    </aura:if>
+
+</aura:component>

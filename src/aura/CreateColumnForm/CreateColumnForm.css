@@ -1,0 +1,15 @@
+/**
+ * Created by Vladyslav Lyfar on 05.10.2018.
+ */
+.THIS {
+}
+.THIS.slds-box {
+    padding: .5rem;
+    background-color: #fff;
+}
+.THIS .slds-button-group-row {
+    margin-top: .5rem;
+}
+.THIS .slds-form-element__label {
+    display: none;
+}

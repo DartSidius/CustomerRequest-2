@@ -3,7 +3,20 @@
  -->
 
 <aura:component description="KanbanCard">
-    <div class="slds-card KanbanCard--cursor--pointer">
-        <div class="slds-p-around_medium">Card</div>
+    <aura:attribute name="kanbanCard" type="KanbanCard__c"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <div class="slds-is-relative">
+        <button onclick="{! c.handleShowModal}" class="slds-card KanbanCard__btn">
+            <span class="slds-p-around_medium">{! v.kanbanCard.Name }</span>
+        </button>
+        <lightning:buttonMenu class="slds-is-absolute KanbanCard__menu-trigger" aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
+            <lightning:menuItem value="MenuItemOne" label="Change name..." />
+            <lightning:menuItem value="MenuItemOne" label="Move to..." />
+            <lightning:menuItem value="MenuItemOne" label="Copy..." />
+            <lightning:menuItem value="MenuItemOne" label="Change members..." />
+            <lightning:menuItem value="MenuItemOne" label="Change due date..." />
+        </lightning:buttonMenu>
     </div>
 </aura:component>

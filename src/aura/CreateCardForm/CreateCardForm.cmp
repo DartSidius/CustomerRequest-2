@@ -3,18 +3,28 @@
  -->
 
 <aura:component description="CreateCardForm">
-    <aura:if isTrue="true">
-        <lightning:button label="+ Add another card" title="+ Add another card" />
+    <aura:registerEvent name="CreateNewCardEvent" type="c:CreateNewCardEvent"/>
+
+    <aura:attribute type="Boolean" name="isCreateCardFormOpened" default="false" />
+    <aura:attribute type="KanbanCard__c" name="newKanbanCard" default="{'sobjectType': 'KanbanCard__c', 'Name': ''}"/>
+
+    <aura:if isTrue="{! !v.isCreateCardFormOpened }">
+        <lightning:button onclick="{! c.showCreateCardForm }" label="+ Add another card" title="+ Add another card" />
     </aura:if>
-    <aura:if isTrue="false">
+
+    <aura:if isTrue="{! v.isCreateCardFormOpened }">
         <div>
-            <div>
-                <lightning:input name="cardName" value="" placeholder="Enter title for this card" />
+            <div class="">
+                <lightning:input name="cardName" value="{! v.newKanbanCard.Name }" placeholder="Enter title for this card" />
             </div>
             <div class="slds-button-group-row">
-                <lightning:button variant="success" label="Add card" />
-                <lightning:button variant="destructive" label="Cancel" />
+                <lightning:button variant="success" onclick="{! c.createNewCard }" label="Add card" />
+                <lightning:button variant="destructive" onclick="{! c.showCreateCardForm }" label="Cancel" />
+                <lightning:buttonMenu class="slds-float_right" aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
+                    <lightning:menuItem value="MenuItemOne" label="Members..." />
+                </lightning:buttonMenu>
             </div>
         </div>
     </aura:if>
+
 </aura:component>

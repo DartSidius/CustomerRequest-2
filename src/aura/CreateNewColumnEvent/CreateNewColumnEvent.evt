@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 05.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="CreateNewColumnEvent">
+    <aura:attribute name="KanbanColumn" type="KanbanColumn__c"/>
+</aura:event>

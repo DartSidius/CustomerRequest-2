@@ -3,7 +3,14 @@
  -->
 
 <aura:component description="KanbanCardList">
-    <aura:iteration items="1,2,3" var="item">
-        <c:KanbanCard/>
+    <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
+
+    <aura:attribute name="kanbanCardList" type="KanbanCard__c[]"/>
+
+    <aura:iteration items="{! v.kanbanCardList }" var="kanbanCard">
+        <c:KanbanCard kanbanCard = "{! kanbanCard }" />
     </aura:iteration>
+
+    <c:CreateCardForm/>
+
 </aura:component>

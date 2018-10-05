@@ -6,10 +6,28 @@
 }
 .THIS .slds-p-around_medium {
     padding: .5rem;
+    display: block;
 }
-.THIS.KanbanCard--cursor--pointer {
-    cursor: pointer;
+.THIS .KanbanCard__btn {
+    width: 100%;
+    text-align: left;
 }
-.THIS:hover {
+.THIS .KanbanCard__btn:hover {
     background-color: aliceblue;
+}
+.THIS .KanbanCard__btn + .KanbanCard__menu-trigger >  {
+    visibility: hidden;
+}
+.THIS .KanbanCard__btn:hover + .KanbanCard__menu-trigger {
+    visibility: visible;
+}
+.THIS .KanbanCard__menu-trigger {
+    right: .3rem;
+    top: .1rem;
+}
+.THIS .KanbanCard__menu-trigger:hover {
+    visibility: visible;
+}
+.THIS .KanbanCard__menu-trigger .slds-button_icon-border {
+    border: 0;
 }

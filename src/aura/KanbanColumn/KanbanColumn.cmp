@@ -3,9 +3,22 @@
  -->
 
 <aura:component description="KanbanColumn">
+    <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
+
     <div class="slds-box">
-        <h1 class="slds-text-heading_small">Column name</h1>
+        <div class="KanbanColumn__header KanbanColumn__header--flex">
+            <h1 class="slds-text-heading_small slds-float_left">{! v.kanbanColumn.Name }</h1>
+
+            <lightning:buttonMenu aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
+                <lightning:menuItem value="MenuItemOne" label="Copy list..." />
+                <lightning:menuItem value="MenuItemTwo" label="Move list..." />
+                <lightning:menuItem value="MenuItemThree" label="Move all cards..." />
+                <lightning:menuItem value="MenuItemFour" label="Sort by..." />
+            </lightning:buttonMenu>
+
+        </div>
+
         <c:KanbanCardList/>
-        <c:CreateCardForm/>
+
     </div>
 </aura:component>

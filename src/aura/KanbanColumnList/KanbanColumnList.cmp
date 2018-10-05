@@ -3,11 +3,18 @@
  -->
 
 <aura:component description="KanbanColumnList">
-    <div style="white-space: nowrap; margin-top: .5rem">
-        <aura:iteration items="1,2" var="item">
-            <div style="width: 270px; height: 100%; display: inline-block; margin-right: .5rem">
-                <c:KanbanColumn/>
+    <aura:handler name="CreateNewColumnEvent" event="c:CreateNewColumnEvent" action="{! c.handleCreateNewColumnEvent }" />
+
+    <aura:attribute name="kanbanColumnList" type="KanbanColumn__c[]"/>
+
+    <div>
+        <aura:iteration items="{! v.kanbanColumnList }" var="kanbanColumn">
+            <div class="KanbanColumnList__column-wrapper">
+                <c:KanbanColumn kanbanColumn = "{! kanbanColumn }" />
             </div>
         </aura:iteration>
+        <div class="KanbanColumnList__column-wrapper">
+            <c:CreateColumnForm/>
+        </div>
     </div>
 </aura:component>
