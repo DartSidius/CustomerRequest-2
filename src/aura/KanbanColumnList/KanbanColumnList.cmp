@@ -2,9 +2,10 @@
  - Created by Vladyslav Lyfar on 04.10.2018.
  -->
 
-<aura:component description="KanbanColumnList">
+<aura:component description="KanbanColumnList" controller="KanbanColumnController">
     <aura:handler name="CreateNewColumnEvent" event="c:CreateNewColumnEvent" action="{! c.handleCreateNewColumnEvent }" />
 
+    <aura:attribute name="kanbanBoardId" type="Id"/>
     <aura:attribute name="kanbanColumnList" type="KanbanColumn__c[]"/>
 
     <div>

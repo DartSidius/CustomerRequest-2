@@ -1,0 +1,61 @@
+<!--
+ - Created by Vladyslav Lyfar on 05.10.2018.
+ -->
+
+<aura:component>
+    <aura:attribute type="Boolean" name="isDescriptionFormOpened" default="false" />
+    <aura:attribute type="Boolean" name="isDateTimeFormOpened" default="false" />
+
+    <div>
+        <article class="KanbanCardDetails__article">
+            <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Card name</h1>
+            <span>In list Done</span>
+        </article>
+        <article class="KanbanCardDetails__article">
+            <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Description</h1>
+            <!--<p>Detailed description of card</p>-->
+
+            <aura:if isTrue="{! !v.isDescriptionFormOpened }">
+                <button onclick="{! c.showDescriptionForm }" class="KanbanCardDetails__toggle-btn slds-box slds-size_full">
+                    Add a more detailed description...
+                </button>
+            </aura:if>
+
+            <aura:if isTrue="{! v.isDescriptionFormOpened }">
+                <div class="KanbanCardDetails__form">
+                    <div class="">
+                        <lightning:textarea aura:id="kanbanColumnName" name="kanbanColumnName" value="" placeholder="Enter some description..." />
+                    </div>
+                    <div class="slds-button-group-row">
+                        <lightning:button variant="success" onclick="" label="Save" />
+                        <lightning:button variant="destructive" onclick="{! c.showDescriptionForm }" label="Cancel" />
+                    </div>
+                </div>
+            </aura:if>
+
+        </article>
+        <article class="KanbanCardDetails__article">
+            <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Due date</h1>
+            <!--<p>Due date</p>-->
+
+            <aura:if isTrue="{! !v.isDateTimeFormOpened }">
+                <button onclick="{! c.showDateTimeForm }" class="slds-box KanbanCardDetails__toggle-btn">
+                    Specify date...
+                </button>
+            </aura:if>
+
+            <aura:if isTrue="{! v.isDateTimeFormOpened }">
+                <div class="KanbanCardDetails__form">
+                    <div class="">
+                        <lightning:input type="datetime-local"/>
+                    </div>
+                    <div class="slds-button-group-row">
+                        <lightning:button variant="success" onclick="" label="Save" />
+                        <lightning:button variant="destructive" onclick="{! c.showDateTimeForm }" label="Cancel" />
+                    </div>
+                </div>
+            </aura:if>
+
+        </article>
+    </div>
+</aura:component>

@@ -2,10 +2,11 @@
  - Created by Vladyslav Lyfar on 04.10.2018.
  -->
 
-<aura:component description="KanbanCardList">
+<aura:component description="KanbanCardList" controller="KanbanCardController">
     <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
 
     <aura:attribute name="kanbanCardList" type="KanbanCard__c[]"/>
+    <aura:attribute name="kanbanColumnId" type="Id"/>
 
     <aura:iteration items="{! v.kanbanCardList }" var="kanbanCard">
         <c:KanbanCard kanbanCard = "{! kanbanCard }" />

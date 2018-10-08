@@ -3,8 +3,21 @@
  */
 ({
     handleCreateNewCardEvent: function(component, event) {
-        let kanbanCards = component.get("v.kanbanCardList");
-        kanbanCards.push(event.getParam("KanbanCard"));
-        component.set("v.kanbanCardList", kanbanCards);
+        let action = component.get("c.createNewKanbanCard");
+        let kanbanCard = event.getParam("KanbanCard");
+        kanbanCard.KanbanColumn__c = component.get("v.kanbanColumnId");
+        action.setParams({
+            "kanbanCard": kanbanCard
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                let kanbanCards = component.get("v.kanbanCardList");
+                kanbanCards.push(response.getReturnValue());
+                component.set("v.kanbanCardList", kanbanCards);
+            }
+        });
+
+        $A.enqueueAction(action);
     }
 })

@@ -2,8 +2,11 @@
  - Created by Vladyslav Lyfar on 04.10.2018.
  -->
 
-<aura:component description="KanbanColumn">
+<aura:component description="KanbanColumn" controller="KanbanColumnController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
     <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
+    <aura:attribute name="kanbanCards" type="KanbanCard__c[]"/>
 
     <div class="slds-box">
         <div class="KanbanColumn__header KanbanColumn__header--flex">
@@ -18,7 +21,7 @@
 
         </div>
 
-        <c:KanbanCardList/>
+        <c:KanbanCardList kanbanColumnId="{! v.kanbanColumn.Id }" kanbanCardList="{! v.kanbanCards }" />
 
     </div>
 </aura:component>

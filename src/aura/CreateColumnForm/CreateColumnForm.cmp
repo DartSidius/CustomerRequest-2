@@ -20,10 +20,10 @@
     <aura:if isTrue="{! v.isCreateColumnFormOpened}">
         <div class="slds-box">
             <div class="">
-                <lightning:input required="true" aura:id="kanbanColumnName" name="kanbanColumnName" value="{! v.newKanbanColumn.Name }" placeholder="Enter title for this column" />
+                <lightning:input aura:id="kanbanColumnName" name="kanbanColumnName" value="{! v.newKanbanColumn.Name }" placeholder="Enter title for this column" />
             </div>
             <div class="slds-button-group-row">
-                <lightning:button variant="success" onclick="{! c.createNewColumn }" label="Add column" />
+                <lightning:button disabled="{! v.newKanbanColumn.Name == '' }" variant="success" onclick="{! c.createNewColumn }" label="Add column" />
                 <lightning:button variant="destructive" onclick="{! c.showCreateColumnForm }" label="Cancel" />
             </div>
         </div>

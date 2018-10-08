@@ -4,6 +4,12 @@
 .THIS {
     margin-top: .5rem;
 }
+.THIS .d-flex {
+    display: flex;
+}
+.THIS .jc-space-between {
+    justify-content: space-between;
+}
 .THIS .slds-button-group-row {
     margin-top: .5rem;
 }

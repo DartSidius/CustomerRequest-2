@@ -1,0 +1,21 @@
+/**
+ * Created by Vladyslav Lyfar on 08.10.2018.
+ */
+.THIS {
+}
+.THIS .KanbanCardDetails__article {
+    margin: .5rem 0;
+}
+.THIS .KanbanCardDetails__form .slds-form-element__label {
+    display: none;
+}
+.THIS .KanbanCardDetails__form .slds-button-group-row {
+    margin-top: .5rem;
+}
+.THIS .KanbanCardDetails__toggle-btn {
+    opacity: .5;
+    text-align: left;
+}
+.THIS .KanbanCardDetails__toggle-btn:hover {
+    opacity: 1;
+}

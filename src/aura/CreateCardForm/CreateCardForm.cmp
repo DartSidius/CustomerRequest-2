@@ -17,12 +17,16 @@
             <div class="">
                 <lightning:input name="cardName" value="{! v.newKanbanCard.Name }" placeholder="Enter title for this card" />
             </div>
-            <div class="slds-button-group-row">
-                <lightning:button variant="success" onclick="{! c.createNewCard }" label="Add card" />
-                <lightning:button variant="destructive" onclick="{! c.showCreateCardForm }" label="Cancel" />
-                <lightning:buttonMenu class="slds-float_right" aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
-                    <lightning:menuItem value="MenuItemOne" label="Members..." />
-                </lightning:buttonMenu>
+            <div class="d-flex jc-space-between">
+                <div class="slds-button-group-row">
+                    <lightning:button disabled="{! v.newKanbanCard.Name == ''}" variant="success" onclick="{! c.createNewCard }" label="Add card" />
+                    <lightning:button variant="destructive" onclick="{! c.showCreateCardForm }" label="Cancel" />
+                </div>
+                <div class="slds-button-group-row">
+                    <lightning:buttonMenu aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
+                        <lightning:menuItem value="MenuItemOne" label="Members..." />
+                    </lightning:buttonMenu>
+                </div>
             </div>
         </div>
     </aura:if>
