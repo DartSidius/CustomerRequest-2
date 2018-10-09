@@ -1,0 +1,11 @@
+/**
+ * Created by Vladyslav Lyfar on 09.10.2018.
+ */
+.THIS {
+    padding: 1rem;
+    width: 15rem;
+    display: block;
+}
+.THIS .slds-button-group-row {
+    margin-top: .5rem;
+}

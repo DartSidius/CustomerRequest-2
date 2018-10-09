@@ -12,8 +12,15 @@ public with sharing class KanbanColumnController {
 
     @AuraEnabled
     public static List<KanbanCard__c> getAllKanbanCards(Id currentId) {
-        return [SELECT Id, Name, KanbanColumn__c
+        return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
                 FROM KanbanCard__c
                 WHERE KanbanColumn__c = :currentId];
     }
+
+    @AuraEnabled
+    public static KanbanColumn__c updateKanbanColumn(KanbanColumn__c kanbanColumn) {
+        update kanbanColumn;
+        return kanbanColumn;
+    }
+
 }

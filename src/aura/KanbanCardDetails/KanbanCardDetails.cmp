@@ -2,20 +2,27 @@
  - Created by Vladyslav Lyfar on 05.10.2018.
  -->
 
-<aura:component>
+<aura:component controller="KanbanCardController">
     <aura:attribute type="Boolean" name="isDescriptionFormOpened" default="false" />
     <aura:attribute type="Boolean" name="isDateTimeFormOpened" default="false" />
+    <aura:attribute type="KanbanCard__c" name="kanbanCard"/>
 
     <div>
         <article class="KanbanCardDetails__article">
-            <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Card name</h1>
-            <span>In list Done</span>
+            <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">
+                {! v.kanbanCard.Name }
+            </h1>
+            <p>In list Done</p>
+            <c:customPopover />
         </article>
         <article class="KanbanCardDetails__article">
             <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Description</h1>
-            <!--<p>Detailed description of card</p>-->
 
-            <aura:if isTrue="{! !v.isDescriptionFormOpened }">
+            <aura:if isTrue="{! v.kanbanCard.Description__c &amp;&amp; !v.isDescriptionFormOpened }">
+                <p onclick="{! c.showDescriptionForm }">{! v.kanbanCard.Description__c }</p>
+            </aura:if>
+
+            <aura:if isTrue="{! !v.kanbanCard.Description__c &amp;&amp; !v.isDescriptionFormOpened }">
                 <button onclick="{! c.showDescriptionForm }" class="KanbanCardDetails__toggle-btn slds-box slds-size_full">
                     Add a more detailed description...
                 </button>
@@ -24,10 +31,11 @@
             <aura:if isTrue="{! v.isDescriptionFormOpened }">
                 <div class="KanbanCardDetails__form">
                     <div class="">
-                        <lightning:textarea aura:id="kanbanColumnName" name="kanbanColumnName" value="" placeholder="Enter some description..." />
+                        <lightning:textarea aura:id="kanbanColumnName" name="kanbanColumnName"
+                                            value="{! v.kanbanCard.Description__c }" placeholder="Enter some description..." />
                     </div>
                     <div class="slds-button-group-row">
-                        <lightning:button variant="success" onclick="" label="Save" />
+                        <lightning:button variant="success" onclick="{! c.saveKanbanCard }" label="Save" />
                         <lightning:button variant="destructive" onclick="{! c.showDescriptionForm }" label="Cancel" />
                     </div>
                 </div>
@@ -36,9 +44,17 @@
         </article>
         <article class="KanbanCardDetails__article">
             <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Due date</h1>
-            <!--<p>Due date</p>-->
 
-            <aura:if isTrue="{! !v.isDateTimeFormOpened }">
+            <aura:if isTrue="{! v.kanbanCard.DueDate__c &amp;&amp; !v.isDateTimeFormOpened }">
+                <p onclick="{! c.showDateTimeForm }">
+                    <lightning:formattedDateTime value="{! v.kanbanCard.DueDate__c }"
+                                                 year="numeric" month="numeric"
+                                                 day="numeric" hour="2-digit"
+                                                 minute="2-digit" timeZone="UTC" timeZoneName="short" hour12="false"/>
+                </p>
+            </aura:if>
+
+            <aura:if isTrue="{! !v.kanbanCard.DueDate__c &amp;&amp; !v.isDateTimeFormOpened }">
                 <button onclick="{! c.showDateTimeForm }" class="slds-box KanbanCardDetails__toggle-btn">
                     Specify date...
                 </button>
@@ -47,10 +63,10 @@
             <aura:if isTrue="{! v.isDateTimeFormOpened }">
                 <div class="KanbanCardDetails__form">
                     <div class="">
-                        <lightning:input type="datetime-local"/>
+                        <lightning:input value="{! v.kanbanCard.DueDate__c }" type="datetime-local"/>
                     </div>
                     <div class="slds-button-group-row">
-                        <lightning:button variant="success" onclick="" label="Save" />
+                        <lightning:button variant="success" onclick="{! c.saveKanbanCard }" label="Save" />
                         <lightning:button variant="destructive" onclick="{! c.showDateTimeForm }" label="Cancel" />
                     </div>
                 </div>

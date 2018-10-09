@@ -10,4 +10,10 @@ public with sharing class KanbanCardController {
         return kanbanCard;
     }
 
+    @AuraEnabled
+    public static KanbanCard__c updateKanbanCard(KanbanCard__c kanbanCard) {
+        update kanbanCard;
+        return kanbanCard;
+    }
+
 }

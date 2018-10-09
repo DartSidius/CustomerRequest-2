@@ -7,16 +7,32 @@
 
     <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
     <aura:attribute name="kanbanCards" type="KanbanCard__c[]"/>
+    <aura:attribute name="isRenameFormOpened" type="Boolean" default="false" />
 
     <div class="slds-box">
         <div class="KanbanColumn__header KanbanColumn__header--flex">
-            <h1 class="slds-text-heading_small slds-float_left">{! v.kanbanColumn.Name }</h1>
 
-            <lightning:buttonMenu aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
-                <lightning:menuItem value="MenuItemOne" label="Copy list..." />
-                <lightning:menuItem value="MenuItemTwo" label="Move list..." />
-                <lightning:menuItem value="MenuItemThree" label="Move all cards..." />
-                <lightning:menuItem value="MenuItemFour" label="Sort by..." />
+            <aura:if isTrue="{! !v.isRenameFormOpened }">
+                <h1 onclick="{! c.showRenameForm }" class="slds-text-heading_small slds-float_left">{! v.kanbanColumn.Name }</h1>
+            </aura:if>
+
+            <aura:if isTrue="{! v.isRenameFormOpened }">
+                <div>
+                    <div>
+                        <lightning:input value="{! v.kanbanColumn.Name }" placeholder="Enter column name..." />
+                    </div>
+                    <div class="slds-button-group-row">
+                        <lightning:button disabled="{! !v.kanbanColumn.Name }" variant="success" onclick="{! c.saveKanbanColumn }" label="Rename" />
+                        <lightning:button variant="destructive" onclick="{! c.showRenameForm }" label="Cancel" />
+                    </div>
+                </div>
+            </aura:if>
+
+            <lightning:buttonMenu aura:id="menu" onselect="{! c.selectAction }" alternativeText="Show menu">
+                <lightning:menuItem value="copyList" label="Copy list..." />
+                <lightning:menuItem value="moveList" label="Move list..." />
+                <lightning:menuItem value="moveAllCards" label="Move all cards..." />
+                <lightning:menuItem value="sortBy" label="Sort by..." />
             </lightning:buttonMenu>
 
         </div>

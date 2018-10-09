@@ -3,7 +3,7 @@
  */
 ({
     doInit: function(component, event, helper) {
-        let action = component.get("c.getCurrentKanbanBoardColumns");
+        let action = component.get("c.getAllKanbanBoardColumns");
         action.setParams({
             "currentId": component.get("v.recordId")
         });

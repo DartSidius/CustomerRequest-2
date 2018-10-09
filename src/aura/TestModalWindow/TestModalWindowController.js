@@ -24,11 +24,6 @@
             body: "Popovers are positioned relative to a reference element",
             referenceSelector: ".mypopover",
             cssClass: "popoverclass, cMyCmp"
-        }).then(function (overlay) {
-            setTimeout(function(){
-                //close the popover after 3 seconds
-                overlay.close();
-            }, 3000);
         });
     }
 })

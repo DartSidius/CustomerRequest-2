@@ -3,9 +3,30 @@
  -->
 
 <aura:component description="KanbanBoardInfo">
+    <aura:attribute name="kanbanBoard" type="Object"/>
+    <aura:attribute name="isRenameFormOpened" type="Boolean" default="false" />
+
     <lightning:layout class="slds-box--border">
-        <lightning:layoutItem padding="around-small">
-            <h1 class="slds-text-heading_medium">Board name</h1>
-        </lightning:layoutItem>
+
+        <aura:if isTrue="{! !v.isRenameFormOpened }">
+            <lightning:layoutItem padding="around-small">
+                <h1 class="slds-text-heading_medium" onclick="{! c.showRenameForm }">{! v.kanbanBoard.Name }</h1>
+            </lightning:layoutItem>
+        </aura:if>
+
+        <aura:if isTrue="{! v.isRenameFormOpened }">
+            <lightning:layout>
+                <lightning:layoutItem padding="around-small">
+                    <lightning:input value="{! v.kanbanBoard.Name }" placeholder="Enter board name..." />
+                </lightning:layoutItem>
+                <lightning:layoutItem padding="around-small">
+                    <div class="slds-button-group-row">
+                        <lightning:button disabled="{! !v.kanbanBoard.Name }" variant="success" onclick="{! c.createNewColumn }" label="Rename" />
+                        <lightning:button variant="destructive" onclick="{! c.showRenameForm }" label="Cancel" />
+                    </div>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </aura:if>
+
     </lightning:layout>
 </aura:component>

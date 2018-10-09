@@ -6,12 +6,24 @@
                 implements="lightning:actionOverride, force:hasRecordId">
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
 
+    <aura:attribute name="record" type="Object" />
+    <aura:attribute name="simpleRecord" type="Object" />
+    <aura:attribute name="recordError" type="String" />
+    <force:recordData aura:id="record"
+                      layoutType="FULL"
+                      recordId="{!v.recordId}"
+                      targetError="{!v.recordError}"
+                      targetRecord="{!v.record}"
+                      targetFields ="{!v.simpleRecord}"
+                      mode="EDIT"/>
     <aura:attribute name="recordId" type="Id" />
     <aura:attribute name="kanbanColumnList" type="KanbanColumn__c[]"/>
 
     <div>
-        <c:KanbanBoardInfo />
+        <c:KanbanBoardInfo kanbanBoard = "{! v.simpleRecord }" />
         <c:KanbanColumnList kanbanColumnList = "{! v.kanbanColumnList }"
                             kanbanBoardId="{! v.recordId }" />
+
+        <!--<c:TestModalWindow />-->
     </div>
 </aura:component>

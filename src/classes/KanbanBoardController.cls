@@ -5,7 +5,7 @@
 public with sharing class KanbanBoardController {
 
     @AuraEnabled
-    public static List<KanbanColumn__c> getCurrentKanbanBoardColumns(Id currentId) {
+    public static List<KanbanColumn__c> getAllKanbanBoardColumns(Id currentId) {
         return [SELECT Id, Name
                 FROM KanbanColumn__c
                 WHERE KanbanBoard__c = :currentId];
@@ -18,4 +18,9 @@ public with sharing class KanbanBoardController {
                 WHERE Id = :currentId];
     }
 
+    @AuraEnabled
+    public static List<KanbanBoard__c> getAllKanbanBoards() {
+        return [SELECT Id, Name
+                FROM KanbanBoard__c];
+    }
 }

@@ -4,7 +4,9 @@
 ({
     showKanbanCardDetails: function(component, event, helper) {
         let modalBody;
-        $A.createComponent("c:KanbanCardDetails", {},
+        $A.createComponent("c:KanbanCardDetails", {
+                "kanbanCard": component.get("v.kanbanCard")
+            },
             function(content, status) {
                 if (status === "SUCCESS") {
                     modalBody = content;
