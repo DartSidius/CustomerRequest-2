@@ -16,4 +16,11 @@ public with sharing class KanbanCardController {
         return kanbanCard;
     }
 
+    @AuraEnabled
+    public static KanbanCard__c copyKanbanCard(KanbanCard__c kanbanCard) {
+        KanbanCard__c newKanbanCard = kanbanCard.clone(false, true, true, false);
+        insert newKanbanCard;
+        return newKanbanCard;
+    }
+
 }

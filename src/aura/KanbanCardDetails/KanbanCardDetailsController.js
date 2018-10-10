@@ -25,6 +25,26 @@
         });
 
         $A.enqueueAction(action);
+    },
+    handleUpdateKanbanCardColumnEvent: function(component, event, helper) {
+        let action = component.get("c.updateKanbanCard");
+        let newKanbanColumnId = event.getParam("NewKanbanCardColumnId");
+        let kanbanCard = component.get("v.kanbanCard");
+        kanbanCard.KanbanColumn__c = newKanbanColumnId;
+        action.setParams({
+            "kanbanCard": kanbanCard
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                component.set("v.kanbanCard", response.getReturnValue());
+            }
+        });
 
+        $A.enqueueAction(action);
+    },
+    togglePopover: function(component) {
+        let customPopover = component.find("customPopover");
+        $A.util.toggleClass(customPopover, "is-show");
     }
 })

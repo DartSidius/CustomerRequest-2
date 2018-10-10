@@ -4,8 +4,14 @@
 .THIS {
     padding: 1rem;
     width: 15rem;
-    display: block;
+    display: none;
+    z-index: 100;
+    background-color: #fff;
 }
-.THIS .slds-button-group-row {
-    margin-top: .5rem;
+.THIS .customPopover__close-btn {
+    top: .5rem;
+    right: .5rem;
+}
+.THIS.is-show {
+    display: block;
 }

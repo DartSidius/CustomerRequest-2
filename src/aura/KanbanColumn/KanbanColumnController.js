@@ -31,6 +31,23 @@
 
         $A.enqueueAction(action);
     },
+    handleUpdateKanbanColumnBoardEvent: function(component, event) {
+        let newKanbanColumnBoardId = event.getParam("NewKanbanColumnBoardId");
+        let action = component.get("c.updateKanbanColumn");
+        let kanbanColumn = component.get("v.kanbanColumn");
+        kanbanColumn.KanbanBoard__c = newKanbanColumnBoardId;
+        action.setParams({
+            "kanbanColumn": kanbanColumn
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                component.set("v.kanbanColumn", response.getReturnValue());
+            }
+        });
+
+        $A.enqueueAction(action);
+    },
     showRenameForm: function(component) {
         let isRenameFormOpened = component.get("v.isRenameFormOpened");
         isRenameFormOpened = !isRenameFormOpened;
@@ -38,15 +55,18 @@
     },
     selectAction: function(component, event) {
         let selectedMenu = event.detail.menuItem.get("v.value");
+        let customPopover;
         switch (selectedMenu) {
             case "copyList":
-                console.log("copyList");
+
                 break;
             case "moveList":
-                console.log("moveList");
+                customPopover = component.find("customPopover");
+                $A.util.toggleClass(customPopover, "is-show");
                 break;
             case "moveAllCards":
-                console.log("copyList");
+                customPopover = component.find("customPopover1");
+                $A.util.toggleClass(customPopover, "is-show");
                 break;
             case "sortBy":
                 console.log("moveList");

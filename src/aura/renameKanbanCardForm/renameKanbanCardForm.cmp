@@ -1,0 +1,19 @@
+<!--
+ - Created by Vladyslav Lyfar on 10.10.2018.
+ -->
+
+<aura:component description="renameKanbanCardForm" extends="c:customPopover">
+    <aura:registerEvent name="CreateNewCardEvent" type="c:CreateNewCardEvent"/>
+
+    <aura:attribute name="kanbanCard" type="KanbanCard__c" />
+
+    <div class="">
+        <lightning:input aura:id="kanbanCardName" name="kanbanCardName" value="{! v.kanbanCard.Name }"
+                         placeholder="Enter title for this card"/>
+    </div>
+    <div class="slds-button-group-row">
+        <lightning:button disabled="{! !v.kanbanCard.Name }" variant="success"
+                          onclick="{! c.renameKanbanCard }" label="Rename card"/>
+        <lightning:button variant="destructive" label="Cancel"/>
+    </div>
+</aura:component>

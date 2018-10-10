@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 10.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="ShareCurrentKanbanBoardColumnsEvent">
+    <aura:attribute type="KanbanColumn__c[]" name="KanbanColumns"/>
+</aura:event>

@@ -1,0 +1,26 @@
+<!--
+ - Created by Vladyslav Lyfar on 10.10.2018.
+ -->
+
+<aura:component description="moveKanbanColumnForm" extends="c:customPopover" controller="KanbanBoardController">
+    <aura:registerEvent name="UpdateKanbanColumnBoardEvent" type="c:UpdateKanbanColumnBoardEvent"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:attribute name="kanbanBoards" type="KanbanBoard__c[]" />
+
+    <div>
+        <lightning:select aura:id="selectBoard" name="selectBoard" label="Choose board"
+                          required="true">
+            <aura:iteration items="{! v.kanbanBoards }" var="board">
+                <option text="{! board.Name }" value="{! board.Id }" selected=""/>
+            </aura:iteration>
+        </lightning:select>
+    </div>
+    <div class="slds-button-group-row">
+        <lightning:button variant="success"
+                          onclick="{! c.updateKanbanColumnBoard }" label="Move"/>
+        <lightning:button variant="destructive" label="Cancel"/>
+    </div>
+
+</aura:component>

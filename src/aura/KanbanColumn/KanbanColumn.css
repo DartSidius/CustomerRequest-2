@@ -16,9 +16,6 @@
     align-items: center;
     justify-content: space-between;
 }
-.THIS .slds-form-element__label {
-    display: none;
-}
 .THIS .slds-button-group-row {
     margin-top: .5rem;
 }

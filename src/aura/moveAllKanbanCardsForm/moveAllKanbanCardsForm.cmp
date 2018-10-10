@@ -1,0 +1,22 @@
+<!--
+ - Created by Vladyslav Lyfar on 10.10.2018.
+ -->
+
+<aura:component description="moveAllKanbanCardsForm" extends="c:customPopover">
+
+    <aura:attribute name="kanbanColumns" type="KanbanColumn__c[]"/>
+
+    <div>
+        <lightning:select aura:id="selectColumn" name="selectColumn" label="Choose column"
+                          required="true">
+            <aura:iteration items="{! v.kanbanColumns }" var="column">
+                <option text="{! column.Name }" value="{! column.Id }" selected=""/>
+            </aura:iteration>
+        </lightning:select>
+    </div>
+    <div class="slds-button-group-row">
+        <lightning:button variant="success"
+                          onclick="{! c.updateKanbanColumnBoard }" label="Move"/>
+        <lightning:button variant="destructive" label="Cancel"/>
+    </div>
+</aura:component>

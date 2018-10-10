@@ -3,6 +3,9 @@
  -->
 
 <aura:component controller="KanbanCardController">
+    <aura:handler name="UpdateKanbanCardColumnEvent" event="c:UpdateKanbanCardColumnEvent"
+                  action="{! c.handleUpdateKanbanCardColumnEvent }"/>
+
     <aura:attribute type="Boolean" name="isDescriptionFormOpened" default="false" />
     <aura:attribute type="Boolean" name="isDateTimeFormOpened" default="false" />
     <aura:attribute type="KanbanCard__c" name="kanbanCard"/>
@@ -12,8 +15,10 @@
             <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">
                 {! v.kanbanCard.Name }
             </h1>
-            <p>In list Done</p>
-            <c:customPopover />
+            <p onclick="{! c.togglePopover }">In list Done</p>
+
+            <c:moveKanbanCardForm aura:id="customPopover" />
+
         </article>
         <article class="KanbanCardDetails__article">
             <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Description</h1>

@@ -2,7 +2,13 @@
  - Created by Vladyslav Lyfar on 04.10.2018.
  -->
 
-<aura:component description="KanbanCard">
+<aura:component description="KanbanCard" controller="KanbanCardController">
+    <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
+    <aura:handler name="UpdateKanbanCardColumnEvent" event="c:UpdateKanbanCardColumnEvent"
+                  action="{! c.handleUpdateKanbanCardColumnEvent }"/>
+    <aura:handler name="CopyKanbanCardEvent" event="c:CopyKanbanCardEvent"
+                  action="{! c.handleCopyKanbanCardEvent }"/>
+
     <aura:attribute name="kanbanCard" type="KanbanCard__c"/>
 
     <lightning:overlayLibrary aura:id="overlayLib"/>
@@ -11,12 +17,18 @@
         <button onclick="{! c.showKanbanCardDetails }" class="slds-card KanbanCard__btn">
             <span class="slds-p-around_medium">{! v.kanbanCard.Name }</span>
         </button>
-        <lightning:buttonMenu class="slds-is-absolute KanbanCard__menu-trigger" aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
-            <lightning:menuItem value="MenuItemOne" label="Change name..." />
-            <lightning:menuItem value="MenuItemOne" label="Move to..." />
-            <lightning:menuItem value="MenuItemOne" label="Copy..." />
-            <lightning:menuItem value="MenuItemOne" label="Change members..." />
-            <lightning:menuItem value="MenuItemOne" label="Change due date..." />
-        </lightning:buttonMenu>
+        <div>
+            <lightning:buttonMenu class="slds-is-absolute KanbanCard__menu-trigger" aura:id="menu" onselect="{! c.selectAction }" alternativeText="Show menu">
+                <lightning:menuItem value="Rename" label="Change name..." />
+                <lightning:menuItem value="MoveTo" label="Move to..." />
+                <lightning:menuItem value="Copy" label="Copy..." />
+                <lightning:menuItem value="ChangeMembers" disabled="true" label="Change members..." />
+            </lightning:buttonMenu>
+
+            <c:renameKanbanCardForm kanbanCard="{! v.kanbanCard }" aura:id="customPopover" />
+            <c:moveKanbanCardForm aura:id="customPopover1" />
+            <c:copyKanbanCardForm aura:id="customPopover2" />
+
+        </div>
     </div>
 </aura:component>
