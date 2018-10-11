@@ -2,49 +2,19 @@
  * Created by Vladyslav Lyfar on 08.10.2018.
  */
 ({
-    showDescriptionForm: function(component) {
-        let isDescriptionFormOpened = component.get("v.isDescriptionFormOpened");
-        isDescriptionFormOpened = !isDescriptionFormOpened;
-        component.set("v.isDescriptionFormOpened", isDescriptionFormOpened);
+    showDescriptionForm: function(component, event, helper) {
+        helper.showDescriptionForm(component);
     },
-    showDateTimeForm: function(component) {
-        let isDateTimeFormOpened = component.get("v.isDateTimeFormOpened");
-        isDateTimeFormOpened = !isDateTimeFormOpened;
-        component.set("v.isDateTimeFormOpened", isDateTimeFormOpened);
+    showDateTimeForm: function(component, event, helper) {
+        helper.showDateTimeForm(component);
     },
     saveKanbanCard: function(component, event, helper) {
-        let action = component.get("c.updateKanbanCard");
-        action.setParams({
-            "kanbanCard": component.get("v.kanbanCard")
-        });
-        action.setCallback(this, (response) => {
-            let state = response.getState();
-            if(state === "SUCCESS") {
-                component.set("v.kanbanCard", response.getReturnValue());
-            }
-        });
-
-        $A.enqueueAction(action);
+        helper.saveKanbanCard(component);
     },
     handleUpdateKanbanCardColumnEvent: function(component, event, helper) {
-        let action = component.get("c.updateKanbanCard");
-        let newKanbanColumnId = event.getParam("NewKanbanCardColumnId");
-        let kanbanCard = component.get("v.kanbanCard");
-        kanbanCard.KanbanColumn__c = newKanbanColumnId;
-        action.setParams({
-            "kanbanCard": kanbanCard
-        });
-        action.setCallback(this, (response) => {
-            let state = response.getState();
-            if(state === "SUCCESS") {
-                component.set("v.kanbanCard", response.getReturnValue());
-            }
-        });
-
-        $A.enqueueAction(action);
+        helper.handleUpdateKanbanCardColumnEvent(component, event);
     },
-    togglePopover: function(component) {
-        let customPopover = component.find("customPopover");
-        $A.util.toggleClass(customPopover, "is-show");
+    togglePopover: function(component, event, helper) {
+        helper.togglePopover(component, event);
     }
 })

@@ -6,21 +6,17 @@ public with sharing class KanbanCardController {
 
     @AuraEnabled
     public static KanbanCard__c createNewKanbanCard(KanbanCard__c kanbanCard) {
-        insert kanbanCard;
-        return kanbanCard;
+        return new KanbanCardService().createNewKanbanCard(kanbanCard);
     }
 
     @AuraEnabled
     public static KanbanCard__c updateKanbanCard(KanbanCard__c kanbanCard) {
-        update kanbanCard;
-        return kanbanCard;
+        return new KanbanCardService().updateKanbanCard(kanbanCard);
     }
 
     @AuraEnabled
     public static KanbanCard__c copyKanbanCard(KanbanCard__c kanbanCard) {
-        KanbanCard__c newKanbanCard = kanbanCard.clone(false, true, true, false);
-        insert newKanbanCard;
-        return newKanbanCard;
+        return new KanbanCardService().copyKanbanCard(kanbanCard);
     }
 
 }

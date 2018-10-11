@@ -3,21 +3,9 @@
  */
 ({
     doInit: function(component, event, helper) {
-        let action = component.get("c.getAllKanbanBoards");
-        action.setCallback(this, (response) => {
-            let state = response.getState();
-            if(state === "SUCCESS") {
-                component.set("v.kanbanBoards", response.getReturnValue());
-            }
-        });
-
-        $A.enqueueAction(action);
+        helper.doInit(component);
     },
-    updateKanbanColumnBoard: function(component, event) {
-        let updateKanbanColumnBoardEvent = component.getEvent("UpdateKanbanColumnBoardEvent");
-        updateKanbanColumnBoardEvent.setParams({
-            "NewKanbanColumnBoardId": component.find('selectBoard').get('v.value')
-        });
-        updateKanbanColumnBoardEvent.fire();
+    updateKanbanColumnBoard: function(component, event, helper) {
+        helper.updateKanbanColumnBoard(component);
     }
 })

@@ -6,21 +6,17 @@ public with sharing class KanbanColumnController {
 
     @AuraEnabled
     public static KanbanColumn__c createNewKanbanColumn(KanbanColumn__c kanbanColumn) {
-        insert kanbanColumn;
-        return kanbanColumn;
+        return new KanbanColumnService().createNewKanbanColumn(kanbanColumn);
     }
 
     @AuraEnabled
     public static List<KanbanCard__c> getAllKanbanCards(Id currentId) {
-        return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
-                FROM KanbanCard__c
-                WHERE KanbanColumn__c = :currentId];
+        return new KanbanCardService().getAllKanbanCards(currentId);
     }
 
     @AuraEnabled
     public static KanbanColumn__c updateKanbanColumn(KanbanColumn__c kanbanColumn) {
-        update kanbanColumn;
-        return kanbanColumn;
+        return new KanbanColumnService().updateKanbanColumn(kanbanColumn);
     }
 
 }
