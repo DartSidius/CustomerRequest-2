@@ -10,11 +10,6 @@ public with sharing class KanbanBoardController {
     }
 
     @AuraEnabled
-    public static KanbanBoard__c getCurrentKanbanBoard(Id currentId) {
-        return new KanbanBoardService().getCurrentKanbanBoard(currentId);
-    }
-
-    @AuraEnabled
     public static List<KanbanBoard__c> getAllKanbanBoards() {
         return new KanbanBoardService().getAllKanbanBoards();
     }

@@ -10,9 +10,9 @@ public class KanbanTestFactory {
         List<KanbanCard__c> cards = generateCards(amount, columns);
     }
 
-    private static List<KanbanBoard__c> generateBoards(Integer amount) {
+    public static List<KanbanBoard__c> generateBoards(Integer amount) {
         List<KanbanBoard__c> result = new List<KanbanBoard__c>();
-        for(Integer i = 0; i < 10; i++) {
+        for(Integer i = 0; i < amount; i++) {
             result.add(new KanbanBoard__c(
                     Name = 'Test' + i
             ));
@@ -21,10 +21,10 @@ public class KanbanTestFactory {
         return result;
     }
 
-    private static List<KanbanColumn__c> generateColumns(Integer amount, List<KanbanBoard__c> boards) {
+    public static List<KanbanColumn__c> generateColumns(Integer amount, List<KanbanBoard__c> boards) {
         List<KanbanColumn__c> result = new List<KanbanColumn__c>();
         for(KanbanBoard__c kanbanBoard : boards) {
-            for(Integer i = 0; i < 5; i++) {
+            for(Integer i = 0; i < amount; i++) {
                 result.add(new KanbanColumn__c(
                         Name = 'Test' + i,
                         KanbanBoard__c = kanbanBoard.Id
@@ -35,10 +35,10 @@ public class KanbanTestFactory {
         return result;
     }
 
-    private static List<KanbanCard__c> generateCards(Integer amount, List<KanbanColumn__c> columns) {
+    public static List<KanbanCard__c> generateCards(Integer amount, List<KanbanColumn__c> columns) {
         List<KanbanCard__c> result = new List<KanbanCard__c>();
         for(KanbanColumn__c kabanColumn : columns) {
-            for(Integer i = 0; i < 3; i++) {
+            for(Integer i = 0; i < amount; i++) {
                 result.add(new KanbanCard__c(
                         Name = 'Test' + i,
                         KanbanColumn__c = kabanColumn.Id

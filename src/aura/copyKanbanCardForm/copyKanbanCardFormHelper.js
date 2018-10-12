@@ -24,6 +24,8 @@
             let state = response.getState();
             if(state === "SUCCESS") {
                 component.set("v.kanbanColumns", response.getReturnValue());
+            } else {
+                console.log("Error occured" + state.getError());
             }
         });
 

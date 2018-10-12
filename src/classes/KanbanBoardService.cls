@@ -4,10 +4,6 @@
 
 public class KanbanBoardService {
 
-    public KanbanBoard__c getCurrentKanbanBoard(Id currentId) {
-        return KanbanBoardRepository.getKanbanBoardById(currentId);
-    }
-
     public List<KanbanBoard__c> getAllKanbanBoards() {
         return KanbanBoardRepository.getAllKanbanBoards();
     }
