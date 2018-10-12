@@ -9,7 +9,9 @@ public class KanbanBoardsChangeTest {
     static void TestColumnDeleteRelatedCards() {
         //generate data
 
-        KanbanTestFactory.generateTestData(5);
+        List<KanbanBoard__c> boards = KanbanTestFactory.generateBoards(5);
+        List<KanbanColumn__c> columns = KanbanTestFactory.generateColumns(5, boards);
+        List<KanbanCard__c> cards = KanbanTestFactory.generateCards(5, columns);
 
         //make magic
         Test.startTest();
@@ -26,7 +28,9 @@ public class KanbanBoardsChangeTest {
     static void TestBoardDeleteRelatedCardsAndColumns() {
         //generate data
 
-        KanbanTestFactory.generateTestData(5);
+        List<KanbanBoard__c> boards = KanbanTestFactory.generateBoards(5);
+        List<KanbanColumn__c> columns = KanbanTestFactory.generateColumns(5, boards);
+        List<KanbanCard__c> cards = KanbanTestFactory.generateCards(5, columns);
 
         //make magic
         Test.startTest();

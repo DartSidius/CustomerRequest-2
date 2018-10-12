@@ -4,12 +4,6 @@
 
 public class KanbanTestFactory {
 
-    public static void generateTestData(Integer amount) {
-        List<KanbanBoard__c> boards = generateBoards(amount);
-        List<KanbanColumn__c> columns = generateColumns(amount, boards);
-        List<KanbanCard__c> cards = generateCards(amount, columns);
-    }
-
     public static List<KanbanBoard__c> generateBoards(Integer amount) {
         List<KanbanBoard__c> result = new List<KanbanBoard__c>();
         for(Integer i = 0; i < amount; i++) {
