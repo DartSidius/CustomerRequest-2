@@ -6,6 +6,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="UpdateKanbanColumnBoardEvent" event="c:UpdateKanbanColumnBoardEvent"
                   action="{! c.handleUpdateKanbanColumnBoardEvent }"/>
+    <aura:handler name="CopyKanbanColumnEvent" event="c:CopyKanbanColumnEvent"
+                  action="{! c.handleCopyKanbanColumnEvent }"/>
 
     <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
     <aura:attribute name="kanbanCards" type="KanbanCard__c[]"/>
@@ -32,14 +34,16 @@
 
             <div class="slds-is-relative">
                 <lightning:buttonMenu aura:id="menu" onselect="{! c.selectAction }" alternativeText="Show menu">
-                    <lightning:menuItem value="copyList" disabled="true" label="Copy list..." />
+                    <lightning:menuItem value="copyList" label="Copy list..." />
                     <lightning:menuItem value="moveList" label="Move list..." />
-                    <lightning:menuItem value="moveAllCards" disabled="true" label="Move all cards..." />
+                    <lightning:menuItem value="moveAllCards" label="Move all cards..." />
+                    <lightning:menuItem value="deleteAllCards" label="Delete all cards" />
                     <lightning:menuItem value="deleteList" label="Delete list"/>
                 </lightning:buttonMenu>
 
                 <c:moveKanbanColumnForm aura:id="customPopover" />
                 <c:moveAllKanbanCardsForm aura:id="customPopover1" />
+                <c:copyKanbanColumnForm aura:id="customPopover2"/>
 
             </div>
 

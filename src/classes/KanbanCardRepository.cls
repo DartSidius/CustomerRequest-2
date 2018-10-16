@@ -9,6 +9,11 @@ public with sharing class KanbanCardRepository {
         return kanbanCard;
     }
 
+    public static List<KanbanCard__c> createNewKanbanCards(List<KanbanCard__c> kanbanCards) {
+        insert kanbanCards;
+        return kanbanCards;
+    }
+
     public static KanbanCard__c updateKanbanCard(KanbanCard__c kanbanCard) {
         update kanbanCard;
         return kanbanCard;
@@ -19,10 +24,16 @@ public with sharing class KanbanCardRepository {
         return kanbanCard;
     }
 
+    public static List<KanbanCard__c> deleteAllKanbanCards(List<KanbanCard__c> kanbanCards) {
+        delete kanbanCards;
+        return kanbanCards;
+    }
+
     public static List<KanbanCard__c> getAllKanbanCardsByColumnId(Id columnId) {
         return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
                 FROM KanbanCard__c
-                WHERE KanbanColumn__c = :columnId];
+                WHERE KanbanColumn__c = :columnId
+                ORDER BY CreatedDate ASC];
     }
 
     public static List<KanbanCard__c> getKanbanCardsByColumnsIds(List<KanbanColumn__c> columns) {

@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 16.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="CopyKanbanColumnEvent">
+    <aura:attribute name="NewKanbanColumnBoardId" type="Id"/>
+</aura:event>

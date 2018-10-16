@@ -24,4 +24,14 @@ public with sharing class KanbanColumnController {
         return new KanbanColumnService().deleteKanbanColumn(kanbanColumn);
     }
 
+    @AuraEnabled
+    public static KanbanColumn__c copyKanbanColumn(KanbanColumn__c kanbanColumn) {
+        return new KanbanColumnService().copyKanbanColumn(kanbanColumn);
+    }
+
+    @AuraEnabled
+    public static List<KanbanCard__c> deleteAllKanbanColumnCards(Id currentId) {
+        return new KanbanColumnService().deleteAllKanbanColumnCards(currentId);
+    }
+
 }

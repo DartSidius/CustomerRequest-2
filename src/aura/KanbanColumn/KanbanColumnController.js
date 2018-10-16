@@ -16,5 +16,8 @@
     },
     selectAction: function(component, event, helper) {
         helper.selectAction(component, event);
+    },
+    handleCopyKanbanColumnEvent: function(component, event, helper) {
+        helper.copyKanbanColumn(component, event);
     }
 })

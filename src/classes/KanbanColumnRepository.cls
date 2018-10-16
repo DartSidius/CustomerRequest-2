@@ -28,7 +28,8 @@ public class KanbanColumnRepository {
     public static List<KanbanColumn__c> getKanbanColumnsByBoardRecordsIds(List<KanbanBoard__c> boards) {
         return [SELECT Id
                 FROM KanbanColumn__c
-                WHERE KanbanBoard__c IN :boards];
+                WHERE KanbanBoard__c IN :boards
+                ORDER BY CreatedDate ASC];
     }
 
 }

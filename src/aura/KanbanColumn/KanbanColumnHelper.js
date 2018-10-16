@@ -56,10 +56,11 @@
     },
     selectAction: function(component, event) {
         let selectedMenu = event.detail.menuItem.get("v.value");
-        let customPopover;
+        let customPopover, deleteConfirmation;
         switch (selectedMenu) {
             case "copyList":
-                console.log("copy");
+                customPopover = component.find("customPopover2");
+                $A.util.toggleClass(customPopover, "is-show");
                 break;
             case "moveList":
                 customPopover = component.find("customPopover");
@@ -69,8 +70,14 @@
                 customPopover = component.find("customPopover1");
                 $A.util.toggleClass(customPopover, "is-show");
                 break;
+            case "deleteAllCards":
+                deleteConfirmation = confirm(`Delete all "${component.get("v.kanbanColumn").Name}" list cards?`);
+                if(deleteConfirmation) {
+                    this.deleteAllKanbanColumnCards(component);
+                }
+                break;
             case "deleteList":
-                let deleteConfirmation = confirm(`Delete column "${component.get("v.kanbanColumn").Name}"?`);
+                deleteConfirmation = confirm(`Delete column "${component.get("v.kanbanColumn").Name}"?`);
                 if(deleteConfirmation) {
                     this.deleteKanbanColumn(component);
                 }
@@ -86,6 +93,37 @@
             let state = response.getState();
             if(state === "SUCCESS") {
                 console.log("column deleted");
+            }
+        });
+
+        $A.enqueueAction(action);
+    },
+    deleteAllKanbanColumnCards: function(component) {
+        let action = component.get("c.deleteAllKanbanColumnCards");
+        action.setParams({
+           "currentId": component.get("v.kanbanColumn").Id
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log("all cards deleted");
+            }
+        });
+
+        $A.enqueueAction(action);
+    },
+    copyKanbanColumn: function(component, event) {
+        let newKanbanColumnBoardId = event.getParam("NewKanbanColumnBoardId");
+        let kanbanColumn = component.get("v.kanbanColumn");
+        kanbanColumn.KanbanBoard__c = newKanbanColumnBoardId;
+        let action = component.get("c.copyKanbanColumn");
+        action.setParams({
+            "kanbanColumn": kanbanColumn
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log("copied successfully");
             }
         });
 
