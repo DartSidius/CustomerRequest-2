@@ -20,6 +20,11 @@ public class KanbanColumnRepository {
         return kanbanColumn;
     }
 
+    public static KanbanColumn__c deleteKanbanColumn(KanbanColumn__c kanbanColumn) {
+        delete kanbanColumn;
+        return kanbanColumn;
+    }
+
     public static List<KanbanColumn__c> getKanbanColumnsByBoardRecordsIds(List<KanbanBoard__c> boards) {
         return [SELECT Id
                 FROM KanbanColumn__c

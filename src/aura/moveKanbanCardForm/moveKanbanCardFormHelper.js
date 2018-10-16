@@ -33,5 +33,9 @@
             "NewKanbanCardColumnId": component.find('selectColumn').get('v.value')
         });
         updateKanbanCardColumnEvent.fire();
+        this.hideForm(component);
+    },
+    hideForm: function(component) {
+        this.togglePopover(component.getSuper());
     }
 })

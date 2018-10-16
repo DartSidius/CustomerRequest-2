@@ -8,5 +8,9 @@
             "KanbanCard": component.get("v.kanbanCard")
         });
         createNewCardEvent.fire();
+        this.hideForm(component);
+    },
+    hideForm: function(component) {
+        this.togglePopover(component.getSuper());
     }
 })

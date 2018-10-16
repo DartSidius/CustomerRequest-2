@@ -19,4 +19,9 @@ public with sharing class KanbanColumnController {
         return new KanbanColumnService().updateKanbanColumn(kanbanColumn);
     }
 
+    @AuraEnabled
+    public static KanbanColumn__c deleteKanbanColumn(KanbanColumn__c kanbanColumn) {
+        return new KanbanColumnService().deleteKanbanColumn(kanbanColumn);
+    }
+
 }

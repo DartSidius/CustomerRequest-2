@@ -23,6 +23,7 @@
                 <lightning:menuItem value="MoveTo" label="Move to..." />
                 <lightning:menuItem value="Copy" label="Copy..." />
                 <lightning:menuItem value="ChangeMembers" disabled="true" label="Change members..." />
+                <lightning:menuItem value="DeleteCard" label="Delete card" />
             </lightning:buttonMenu>
 
             <c:renameKanbanCardForm kanbanCard="{! v.kanbanCard }" aura:id="customPopover" />

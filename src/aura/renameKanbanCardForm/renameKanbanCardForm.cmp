@@ -14,6 +14,6 @@
     <div class="slds-button-group-row">
         <lightning:button disabled="{! !v.kanbanCard.Name }" variant="success"
                           onclick="{! c.renameKanbanCard }" label="Rename card"/>
-        <lightning:button variant="destructive" label="Cancel"/>
+        <lightning:button variant="destructive" onclick="{! c.cancelForm }" label="Cancel"/>
     </div>
 </aura:component>

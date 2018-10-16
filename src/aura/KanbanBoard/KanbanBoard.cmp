@@ -6,6 +6,8 @@
                 implements="lightning:actionOverride, force:hasRecordId">
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="RenameKanbanBoardEvent" action="{! c.handleRenameKanbanBoardEvent }"
+                  event="c:RenameKanbanBoardEvent"/>
 
     <aura:attribute name="record" type="Object" />
     <aura:attribute name="simpleRecord" type="Object" />

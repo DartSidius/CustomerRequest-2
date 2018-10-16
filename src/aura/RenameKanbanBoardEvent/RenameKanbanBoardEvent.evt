@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 16.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="RenameKanbanBoardEvent">
+    <aura:attribute type="Object" name="KanbanBoard"/>
+</aura:event>

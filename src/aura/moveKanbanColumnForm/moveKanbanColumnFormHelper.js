@@ -19,5 +19,9 @@
             "NewKanbanColumnBoardId": component.find('selectBoard').get('v.value')
         });
         updateKanbanColumnBoardEvent.fire();
+        this.hideForm(component);
+    },
+    hideForm: function(component) {
+        this.togglePopover(component.getSuper());
     }
 })

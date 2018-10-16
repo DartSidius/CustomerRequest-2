@@ -16,5 +16,16 @@
         });
 
         $A.enqueueAction(action);
+    },
+    renameKanbanBoard: function(component, event) {
+        component.set("v.simpleRecord", event.getParam("KanbanBoard"));
+        this.saveKanbanBoardRecord(component);
+    },
+    saveKanbanBoardRecord: function(component) {
+        component.find("record").saveRecord($A.getCallback((saveResult) => {
+            if (saveResult.state === "SUCCESS" || saveResult.state === "DRAFT") {
+                console.log("saved successfully");
+            }
+        }));
     }
 })

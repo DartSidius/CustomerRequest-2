@@ -14,6 +14,11 @@ public with sharing class KanbanCardRepository {
         return kanbanCard;
     }
 
+    public static KanbanCard__c deleteKanbanCard(KanbanCard__c kanbanCard) {
+        delete kanbanCard;
+        return kanbanCard;
+    }
+
     public static List<KanbanCard__c> getAllKanbanCardsByColumnId(Id columnId) {
         return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
                 FROM KanbanCard__c

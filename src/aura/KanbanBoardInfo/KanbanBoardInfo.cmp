@@ -5,6 +5,7 @@
 <aura:component description="KanbanBoardInfo">
     <aura:attribute name="kanbanBoard" type="Object"/>
     <aura:attribute name="isRenameFormOpened" type="Boolean" default="false" />
+    <aura:registerEvent name="RenameKanbanBoardEvent" type="c:RenameKanbanBoardEvent"/>
 
     <lightning:layout class="slds-box--border">
 
@@ -21,7 +22,7 @@
                 </lightning:layoutItem>
                 <lightning:layoutItem padding="around-small">
                     <div class="slds-button-group-row">
-                        <lightning:button disabled="{! !v.kanbanBoard.Name }" variant="success" onclick="{! c.createNewColumn }" label="Rename" />
+                        <lightning:button disabled="{! !v.kanbanBoard.Name }" variant="success" onclick="{! c.renameKanbanBoard }" label="Rename" />
                         <lightning:button variant="destructive" onclick="{! c.showRenameForm }" label="Cancel" />
                     </div>
                 </lightning:layoutItem>

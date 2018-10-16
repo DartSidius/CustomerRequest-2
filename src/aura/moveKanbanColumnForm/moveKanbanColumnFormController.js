@@ -7,5 +7,8 @@
     },
     updateKanbanColumnBoard: function(component, event, helper) {
         helper.updateKanbanColumnBoard(component);
+    },
+    cancelForm: function(component, event, helper) {
+        helper.hideForm(component);
     }
 })

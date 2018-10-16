@@ -48,7 +48,27 @@
                 customPopover = component.find("customPopover2");
                 $A.util.toggleClass(customPopover, "is-show");
                 break;
+            case "DeleteCard":
+                let deleteConfirmation = confirm(`Delete card "${component.get("v.kanbanCard").Name}"?`);
+                if(deleteConfirmation) {
+                    this.deleteKanbanCard(component);
+                }
+                break;
         }
+    },
+    deleteKanbanCard: function(component) {
+        let action = component.get("c.deleteKanbanCard");
+        action.setParams({
+            "kanbanCard": component.get("v.kanbanCard")
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log("card deleted");
+            }
+        });
+
+        $A.enqueueAction(action);
     },
     handleUpdateKanbanCardColumnEvent: function(component, event) {
         let action = component.get("c.updateKanbanCard");

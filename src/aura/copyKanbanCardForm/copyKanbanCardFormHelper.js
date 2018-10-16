@@ -15,6 +15,9 @@
 
         $A.enqueueAction(action);
     },
+    hideForm: function(component) {
+        this.togglePopover(component.getSuper());
+    },
     selectKanbanBoard: function(component) {
         let action = component.get("c.getAllKanbanBoardColumns");
         action.setParams({
@@ -37,5 +40,6 @@
             "NewKanbanCardColumnId": component.find('selectColumn').get('v.value')
         });
         copyKanbanCardEvent.fire();
+        this.hideForm(component);
     }
 })

@@ -21,4 +21,8 @@ public class KanbanCardService {
         return KanbanCardRepository.getAllKanbanCardsByColumnId(columnId);
     }
 
+    public KanbanCard__c deleteKanbanCard(KanbanCard__c kanbanCard) {
+        return KanbanCardRepository.deleteKanbanCard(kanbanCard);
+    }
+
 }

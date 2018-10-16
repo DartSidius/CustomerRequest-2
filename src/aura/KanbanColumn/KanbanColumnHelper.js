@@ -30,6 +30,7 @@
         });
 
         $A.enqueueAction(action);
+        this.showRenameForm(component);
     },
     handleUpdateKanbanColumnBoardEvent: function(component, event) {
         let newKanbanColumnBoardId = event.getParam("NewKanbanColumnBoardId");
@@ -58,7 +59,7 @@
         let customPopover;
         switch (selectedMenu) {
             case "copyList":
-
+                console.log("copy");
                 break;
             case "moveList":
                 customPopover = component.find("customPopover");
@@ -68,9 +69,26 @@
                 customPopover = component.find("customPopover1");
                 $A.util.toggleClass(customPopover, "is-show");
                 break;
-            case "sortBy":
-                console.log("moveList");
+            case "deleteList":
+                let deleteConfirmation = confirm(`Delete column "${component.get("v.kanbanColumn").Name}"?`);
+                if(deleteConfirmation) {
+                    this.deleteKanbanColumn(component);
+                }
                 break;
         }
+    },
+    deleteKanbanColumn: function(component) {
+        let action = component.get("c.deleteKanbanColumn");
+        action.setParams({
+            "kanbanColumn": component.get("v.kanbanColumn")
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log("column deleted");
+            }
+        });
+
+        $A.enqueueAction(action);
     }
 })

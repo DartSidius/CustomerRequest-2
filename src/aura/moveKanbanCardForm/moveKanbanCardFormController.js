@@ -10,5 +10,8 @@
     },
     updateKanbanCardColumn: function(component, event, helper) {
         helper.updateKanbanCardColumn(component);
+    },
+    cancelForm: function(component, event, helper) {
+        helper.hideForm(component);
     }
 })

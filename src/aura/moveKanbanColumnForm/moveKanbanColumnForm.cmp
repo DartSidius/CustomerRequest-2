@@ -20,7 +20,9 @@
     <div class="slds-button-group-row">
         <lightning:button variant="success"
                           onclick="{! c.updateKanbanColumnBoard }" label="Move"/>
-        <lightning:button variant="destructive" label="Cancel"/>
+        <lightning:button variant="destructive"
+                          onclick="{! c.cancelForm }"
+                          label="Cancel"/>
     </div>
 
 </aura:component>

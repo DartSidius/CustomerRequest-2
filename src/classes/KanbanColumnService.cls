@@ -16,6 +16,10 @@ public class KanbanColumnService {
         return KanbanColumnRepository.updateKanbanColumn(kanbanColumn);
     }
 
+    public KanbanColumn__c deleteKanbanColumn(KanbanColumn__c kanbanColumn) {
+        return KanbanColumnRepository.deleteKanbanColumn(kanbanColumn);
+    }
+
     public void deleteAllRelatedChildCards(List<KanbanColumn__c> oldKanbanColumnList) {
         List<KanbanCard__c> relatedCardsToDelete = this.getAllRelatedCardsToDelete(oldKanbanColumnList);
         if(!relatedCardsToDelete.isEmpty()) {

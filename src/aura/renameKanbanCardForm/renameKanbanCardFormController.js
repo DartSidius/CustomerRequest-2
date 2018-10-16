@@ -4,5 +4,8 @@
 ({
     renameKanbanCard: function(component, event, helper) {
         helper.renameKanbanCard(component);
+    },
+    cancelForm: function(component, event, helper) {
+        helper.hideForm(component);
     }
 })

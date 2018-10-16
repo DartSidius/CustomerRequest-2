@@ -19,4 +19,9 @@ public with sharing class KanbanCardController {
         return new KanbanCardService().copyKanbanCard(kanbanCard);
     }
 
+    @AuraEnabled
+    public static KanbanCard__c deleteKanbanCard(KanbanCard__c kanbanCard) {
+        return new KanbanCardService().deleteKanbanCard(kanbanCard);
+    }
+
 }

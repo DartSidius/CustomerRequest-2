@@ -10,5 +10,8 @@
     },
     copyKanbanCard: function(component, event, helper) {
         helper.copyKanbanCard(component);
+    },
+    cancelForm: function(component, event, helper) {
+        helper.hideForm(component);
     }
 })

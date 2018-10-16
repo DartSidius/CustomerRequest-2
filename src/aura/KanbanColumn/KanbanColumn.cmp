@@ -35,7 +35,7 @@
                     <lightning:menuItem value="copyList" disabled="true" label="Copy list..." />
                     <lightning:menuItem value="moveList" label="Move list..." />
                     <lightning:menuItem value="moveAllCards" disabled="true" label="Move all cards..." />
-                    <lightning:menuItem value="sortBy" disabled="true" label="Sort by..." />
+                    <lightning:menuItem value="deleteList" label="Delete list"/>
                 </lightning:buttonMenu>
 
                 <c:moveKanbanColumnForm aura:id="customPopover" />
