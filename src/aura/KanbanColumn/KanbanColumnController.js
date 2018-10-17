@@ -5,7 +5,7 @@
     doInit: function(component, event, helper) {
         helper.doInit(component);
     },
-    saveKanbanColumn: function(component, event, helper) {
+    renameKanbanColumn: function(component, event, helper) {
         helper.saveKanbanColumn(component);
     },
     handleUpdateKanbanColumnBoardEvent: function(component, event, helper) {

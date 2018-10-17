@@ -3,10 +3,10 @@
  -->
 
 <aura:component description="CreateCardForm">
-    <aura:registerEvent name="CreateNewCardEvent" type="c:CreateNewCardEvent"/>
-
     <aura:attribute type="Boolean" name="isCreateCardFormOpened" default="false" />
     <aura:attribute type="KanbanCard__c" name="newKanbanCard" default="{'sobjectType': 'KanbanCard__c', 'Name': ''}"/>
+
+    <aura:registerEvent name="CreateNewCardEvent" type="c:CreateNewCardEvent"/>
 
     <aura:if isTrue="{! !v.isCreateCardFormOpened }">
         <lightning:button onclick="{! c.showCreateCardForm }" label="+ Add another card" title="+ Add another card" />
@@ -24,7 +24,7 @@
                 </div>
                 <div class="slds-button-group-row">
                     <lightning:buttonMenu aura:id="menu" onselect="{! c.handleSelect }" alternativeText="Show menu">
-                        <lightning:menuItem value="MenuItemOne" label="Members..." />
+                        <lightning:menuItem value="MenuItemOne" disabled="true" label="Members..." />
                     </lightning:buttonMenu>
                 </div>
             </div>

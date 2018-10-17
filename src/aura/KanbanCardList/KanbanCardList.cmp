@@ -3,10 +3,11 @@
  -->
 
 <aura:component description="KanbanCardList" controller="KanbanCardController">
-    <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
-
     <aura:attribute name="kanbanCardList" type="KanbanCard__c[]"/>
     <aura:attribute name="kanbanColumnId" type="Id"/>
+
+    <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
+    <aura:handler name="OnDeleteKanbanCardEvent" event="c:OnDeleteKanbanCardEvent" action="{! c.handleOnDeleteKanbanCardEvent }"/>
 
     <aura:iteration items="{! v.kanbanCardList }" var="kanbanCard">
         <c:KanbanCard kanbanCard = "{! kanbanCard }" />

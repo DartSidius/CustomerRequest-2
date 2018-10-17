@@ -64,7 +64,11 @@
         action.setCallback(this, (response) => {
             let state = response.getState();
             if(state === "SUCCESS") {
-                console.log("card deleted");
+                let onDeleteKanbanCardEvent = component.getEvent("OnDeleteKanbanCardEvent");
+                onDeleteKanbanCardEvent.setParams({
+                    "DeletedKanbanCard": response.getReturnValue()
+                });
+                onDeleteKanbanCardEvent.fire();
             }
         });
 

@@ -3,9 +3,9 @@
  -->
 
 <aura:component description="renameKanbanCardForm" extends="c:customPopover">
-    <aura:registerEvent name="CreateNewCardEvent" type="c:CreateNewCardEvent"/>
-
     <aura:attribute name="kanbanCard" type="KanbanCard__c" />
+
+    <aura:registerEvent name="CreateNewCardEvent" type="c:CreateNewCardEvent"/>
 
     <div class="">
         <lightning:input aura:id="kanbanCardName" name="kanbanCardName" value="{! v.kanbanCard.Name }"

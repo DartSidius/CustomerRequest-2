@@ -3,11 +3,11 @@
  -->
 
 <aura:component description="moveAllKanbanCardsForm" extends="c:customPopover">
+    <aura:attribute name="kanbanColumns" type="KanbanColumn__c[]"/>
+
     <aura:registerEvent name="MoveAllKanbanCardsEvent" type="c:MoveAllKanbanCardsEvent" />
 
     <aura:handler event="c:ShareKanbanColumnsEvent" action="{!c.handleShareKanbanColumnsEvent}"/>
-
-    <aura:attribute name="kanbanColumns" type="KanbanColumn__c[]"/>
 
     <div>
         <lightning:select aura:id="selectColumn" name="selectColumn" label="Choose column"

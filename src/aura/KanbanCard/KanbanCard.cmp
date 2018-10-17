@@ -3,13 +3,15 @@
  -->
 
 <aura:component description="KanbanCard" controller="KanbanCardController">
+    <aura:attribute name="kanbanCard" type="KanbanCard__c"/>
+
+    <aura:registerEvent name="OnDeleteKanbanCardEvent" type="c:OnDeleteKanbanCardEvent"/>
+
     <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
     <aura:handler name="UpdateKanbanCardColumnEvent" event="c:UpdateKanbanCardColumnEvent"
                   action="{! c.handleUpdateKanbanCardColumnEvent }"/>
     <aura:handler name="CopyKanbanCardEvent" event="c:CopyKanbanCardEvent"
                   action="{! c.handleCopyKanbanCardEvent }"/>
-
-    <aura:attribute name="kanbanCard" type="KanbanCard__c"/>
 
     <lightning:overlayLibrary aura:id="overlayLib"/>
 
@@ -18,7 +20,8 @@
             <span class="slds-p-around_medium">{! v.kanbanCard.Name }</span>
         </button>
         <div>
-            <lightning:buttonMenu class="slds-is-absolute KanbanCard__menu-trigger" aura:id="menu" onselect="{! c.selectAction }" alternativeText="Show menu">
+            <lightning:buttonMenu class="slds-is-absolute KanbanCard__menu-trigger"
+                                  aura:id="menu" onselect="{! c.selectAction }" alternativeText="Show menu">
                 <lightning:menuItem value="Rename" label="Change name..." />
                 <lightning:menuItem value="MoveTo" label="Move to..." />
                 <lightning:menuItem value="Copy" label="Copy..." />

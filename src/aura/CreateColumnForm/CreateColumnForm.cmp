@@ -3,12 +3,12 @@
  -->
 
 <aura:component description="CreateColumnForm">
-    <aura:registerEvent name="CreateNewColumnEvent" type="c:CreateNewColumnEvent" />
-
     <aura:attribute type="Boolean" name="isCreateColumnFormOpened" default="false" />
     <aura:attribute type="KanbanColumn__c" name="newKanbanColumn"
                     default="{'sobjectType': 'KanbanColumn__c',
                                'Name': '' }" />
+
+    <aura:registerEvent name="CreateNewColumnEvent" type="c:CreateNewColumnEvent" />
 
     <aura:if isTrue="{! !v.isCreateColumnFormOpened}">
         <lightning:button variant="brand"

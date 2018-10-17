@@ -19,5 +19,14 @@
         });
 
         $A.enqueueAction(action);
+    },
+    removeDeletedCardFromList: function(component, event) {
+        let kanbanCards = component.get("v.kanbanCardList");
+        let cardToDelete = event.getParam("DeletedKanbanCard");
+        let cardIndex = kanbanCards.findIndex((element, index, array) => {
+            return element.Id === cardToDelete.Id;
+        });
+        kanbanCards.splice(cardIndex, 1);
+        component.set("v.kanbanCardList", kanbanCards);
     }
 })

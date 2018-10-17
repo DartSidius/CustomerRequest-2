@@ -3,10 +3,13 @@
  -->
 
 <aura:component description="KanbanColumnList" controller="KanbanColumnController">
-    <aura:handler name="CreateNewColumnEvent" event="c:CreateNewColumnEvent" action="{! c.handleCreateNewColumnEvent }" />
-
     <aura:attribute name="kanbanBoardId" type="Id"/>
     <aura:attribute name="kanbanColumnList" type="KanbanColumn__c[]"/>
+
+    <aura:handler name="CreateNewColumnEvent" event="c:CreateNewColumnEvent" action="{! c.handleCreateNewColumnEvent }" />
+    <aura:handler name="OnDeleteKanbanColumnEvent" event="c:OnDeleteKanbanColumnEvent" action="{! c.handleOnDeleteKanbanColumnEvent }"/>
+    <aura:handler name="OnCopyKanbanColumnEvent" event="c:OnCopyKanbanColumnEvent" action="{! c.handleOnCopyKanbanColumnEvent }"/>
+    <aura:handler name="OnMoveKanbanColumnEvent" event="c:OnMoveKanbanColumnEvent" action="{! c.handleOnMoveKanbanColumnEvent }"/>
 
     <div>
         <aura:iteration items="{! v.kanbanColumnList }" var="kanbanColumn">

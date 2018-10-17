@@ -4,5 +4,8 @@
 ({
     handleCreateNewCardEvent: function(component, event, helper) {
         helper.handleCreateNewCardEvent(component, event);
+    },
+    handleOnDeleteKanbanCardEvent: function(component, event, helper) {
+        helper.removeDeletedCardFromList(component, event);
     }
 })

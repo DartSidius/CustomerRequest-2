@@ -3,7 +3,6 @@
  -->
 
 <aura:component extensible="true" description="customPopover">
-
     <aura:attribute name="position" type="String"/>
 
     <lightning:layout class="slds-box--border slds-is-absolute" aura:id="customPopover">

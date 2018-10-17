@@ -3,11 +3,11 @@
  -->
 
 <aura:component description="moveKanbanColumnForm" extends="c:customPopover" controller="KanbanBoardController">
+    <aura:attribute name="kanbanBoards" type="KanbanBoard__c[]" />
+
     <aura:registerEvent name="UpdateKanbanColumnBoardEvent" type="c:UpdateKanbanColumnBoardEvent"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-
-    <aura:attribute name="kanbanBoards" type="KanbanBoard__c[]" />
 
     <div>
         <lightning:select aura:id="selectBoard" name="selectBoard" label="Choose board"

@@ -3,6 +3,14 @@
  -->
 
 <aura:component description="KanbanColumn" controller="KanbanColumnController">
+    <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
+    <aura:attribute name="kanbanCards" type="KanbanCard__c[]"/>
+    <aura:attribute name="isRenameFormOpened" type="Boolean" default="false" />
+
+    <aura:registerEvent name="OnDeleteKanbanColumnEvent" type="c:OnDeleteKanbanColumnEvent"/>
+    <aura:registerEvent name="OnCopyKanbanColumnEvent" type="c:OnCopyKanbanColumnEvent"/>
+    <aura:registerEvent name="OnMoveKanbanColumnEvent" type="c:OnMoveKanbanColumnEvent"/>
+
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="UpdateKanbanColumnBoardEvent" event="c:UpdateKanbanColumnBoardEvent"
                   action="{! c.handleUpdateKanbanColumnBoardEvent }"/>
@@ -10,10 +18,6 @@
                   action="{! c.handleCopyKanbanColumnEvent }"/>
     <aura:handler name="MoveAllKanbanCardsEvent" event="c:MoveAllKanbanCardsEvent"
                   action="{! c.handleMoveAllKanbanCardsEvent }"/>
-
-    <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
-    <aura:attribute name="kanbanCards" type="KanbanCard__c[]"/>
-    <aura:attribute name="isRenameFormOpened" type="Boolean" default="false" />
 
     <div class="slds-box">
         <div class="KanbanColumn__header KanbanColumn__header--flex">
@@ -28,7 +32,7 @@
                         <lightning:input value="{! v.kanbanColumn.Name }" placeholder="Enter column name..." />
                     </div>
                     <div class="slds-button-group-row">
-                        <lightning:button disabled="{! !v.kanbanColumn.Name }" variant="success" onclick="{! c.saveKanbanColumn }" label="Rename" />
+                        <lightning:button disabled="{! !v.kanbanColumn.Name }" variant="success" onclick="{! c.renameKanbanColumn }" label="Rename" />
                         <lightning:button variant="destructive" onclick="{! c.showRenameForm }" label="Cancel" />
                     </div>
                 </div>

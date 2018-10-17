@@ -5,6 +5,7 @@
 <aura:component description="KanbanBoardInfo">
     <aura:attribute name="kanbanBoard" type="Object"/>
     <aura:attribute name="isRenameFormOpened" type="Boolean" default="false" />
+
     <aura:registerEvent name="RenameKanbanBoardEvent" type="c:RenameKanbanBoardEvent"/>
 
     <lightning:layout class="slds-box--border">

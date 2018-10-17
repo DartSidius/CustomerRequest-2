@@ -61,7 +61,11 @@
         action.setCallback(this, (response) => {
             let state = response.getState();
             if(state === "SUCCESS") {
-                component.set("v.kanbanColumn", response.getReturnValue());
+                let onMoveKanbanColumnEvent = component.getEvent("OnMoveKanbanColumnEvent");
+                onMoveKanbanColumnEvent.setParams({
+                    "MovedKanbanColumn": response.getReturnValue()
+                });
+                onMoveKanbanColumnEvent.fire();
             }
         });
 
@@ -111,6 +115,11 @@
             let state = response.getState();
             if(state === "SUCCESS") {
                 console.log("column deleted");
+                let OnDeleteKanbanColumnEvent = component.getEvent("OnDeleteKanbanColumnEvent");
+                OnDeleteKanbanColumnEvent.setParams({
+                    "DeletedKanbanColumn": response.getReturnValue()
+                });
+                OnDeleteKanbanColumnEvent.fire();
             }
         });
 
@@ -125,6 +134,7 @@
             let state = response.getState();
             if(state === "SUCCESS") {
                 console.log("all cards deleted");
+                component.set("v.kanbanCards", []);
             }
         });
 
@@ -141,7 +151,12 @@
         action.setCallback(this, (response) => {
             let state = response.getState();
             if(state === "SUCCESS") {
-                console.log("copied successfully");
+                console.log(response.getReturnValue());
+                let onCopyKanbanColumnEvent = component.getEvent("OnCopyKanbanColumnEvent");
+                onCopyKanbanColumnEvent.setParams({
+                    "CopiedKanbanColumn": response.getReturnValue()
+                });
+                onCopyKanbanColumnEvent.fire();
             }
         });
 
