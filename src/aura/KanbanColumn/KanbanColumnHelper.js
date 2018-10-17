@@ -32,6 +32,24 @@
         $A.enqueueAction(action);
         this.showRenameForm(component);
     },
+    moveAllKanbanCardsToOtherColumn: function(component, event) {
+        let action = component.get("c.moveAllKanbanCardsToOtherColumn");
+        let kanbanCards = component.get("v.kanbanCards");
+        kanbanCards.forEach((element) => {
+            element.KanbanColumn__c = event.getParam("NewKanbanColumnId")
+        });
+        action.setParams({
+            "kanbanCards": kanbanCards
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log("all cards moved");
+            }
+        });
+
+        $A.enqueueAction(action);
+    },
     handleUpdateKanbanColumnBoardEvent: function(component, event) {
         let newKanbanColumnBoardId = event.getParam("NewKanbanColumnBoardId");
         let action = component.get("c.updateKanbanColumn");

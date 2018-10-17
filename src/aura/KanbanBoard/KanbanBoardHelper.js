@@ -12,6 +12,11 @@
             if(state === "SUCCESS") {
                 let kanbanColumnList = response.getReturnValue();
                 component.set("v.kanbanColumnList", kanbanColumnList);
+                let shareKanbanColumnsEvent = $A.get("e.c:ShareKanbanColumnsEvent");
+                shareKanbanColumnsEvent.setParams({
+                    "KanbanColumns": kanbanColumnList
+                });
+                shareKanbanColumnsEvent.fire();
             }
         });
 

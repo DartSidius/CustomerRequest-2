@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 17.10.2018.
+ -->
+
+<aura:event type="APPLICATION" description="ShareKanbanColumnsEvent">
+    <aura:attribute type="KanbanColumn__c[]" name="KanbanColumns"/>
+</aura:event>

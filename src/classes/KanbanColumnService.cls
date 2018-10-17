@@ -25,6 +25,10 @@ public class KanbanColumnService {
         return KanbanCardRepository.deleteAllKanbanCards(kanbanCardsToDelete);
     }
 
+    public List<KanbanCard__c> moveAllKanbanColumnCards(List<KanbanCard__c> kanbanCards) {
+        return KanbanCardRepository.updateKanbanCards(kanbanCards);
+    }
+
     public KanbanColumn__c copyKanbanColumn(KanbanColumn__c kanbanColumn) {
         KanbanColumn__c newKanbanColumn = KanbanColumnRepository.createNewKanbanColumn(
                 kanbanColumn.clone(false, true, true, false)

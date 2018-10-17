@@ -8,6 +8,8 @@
                   action="{! c.handleUpdateKanbanColumnBoardEvent }"/>
     <aura:handler name="CopyKanbanColumnEvent" event="c:CopyKanbanColumnEvent"
                   action="{! c.handleCopyKanbanColumnEvent }"/>
+    <aura:handler name="MoveAllKanbanCardsEvent" event="c:MoveAllKanbanCardsEvent"
+                  action="{! c.handleMoveAllKanbanCardsEvent }"/>
 
     <aura:attribute name="kanbanColumn" type="KanbanColumn__c" />
     <aura:attribute name="kanbanCards" type="KanbanCard__c[]"/>

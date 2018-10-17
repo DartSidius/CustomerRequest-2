@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 17.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="MoveAllKanbanCardsEvent">
+    <aura:attribute name="NewKanbanColumnId" type="Id"/>
+</aura:event>

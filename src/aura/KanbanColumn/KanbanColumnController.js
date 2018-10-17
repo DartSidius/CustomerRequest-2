@@ -19,5 +19,8 @@
     },
     handleCopyKanbanColumnEvent: function(component, event, helper) {
         helper.copyKanbanColumn(component, event);
+    },
+    handleMoveAllKanbanCardsEvent: function(component, event, helper) {
+        helper.moveAllKanbanCardsToOtherColumn(component, event);
     }
 })

@@ -29,6 +29,11 @@ public with sharing class KanbanCardRepository {
         return kanbanCards;
     }
 
+    public static List<KanbanCard__c> updateKanbanCards(List<KanbanCard__c> kanbanCards) {
+        update kanbanCards;
+        return kanbanCards;
+    }
+
     public static List<KanbanCard__c> getAllKanbanCardsByColumnId(Id columnId) {
         return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
                 FROM KanbanCard__c
