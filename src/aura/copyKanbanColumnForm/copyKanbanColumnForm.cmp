@@ -12,6 +12,7 @@
     <div>
         <lightning:select aura:id="selectBoard" name="selectBoard" label="Choose board"
                           required="true">
+            <option text="Select board" disabled="true" value="" selected="true"/>
             <aura:iteration items="{! v.kanbanBoards }" var="board">
                 <option text="{! board.Name }" value="{! board.Id }" selected=""/>
             </aura:iteration>

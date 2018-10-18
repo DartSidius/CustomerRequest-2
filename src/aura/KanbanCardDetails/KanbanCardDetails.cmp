@@ -15,10 +15,6 @@
             <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">
                 {! v.kanbanCard.Name }
             </h1>
-            <p onclick="{! c.togglePopover }">In list Done</p>
-
-            <c:moveKanbanCardForm aura:id="customPopover" />
-
         </article>
         <article class="KanbanCardDetails__article">
             <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Description</h1>

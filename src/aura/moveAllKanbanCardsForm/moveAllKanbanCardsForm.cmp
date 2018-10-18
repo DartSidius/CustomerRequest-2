@@ -12,6 +12,7 @@
     <div>
         <lightning:select aura:id="selectColumn" name="selectColumn" label="Choose column"
                           required="true">
+            <option text="Select column" disabled="true" value="" selected="true"/>
             <aura:iteration items="{! v.kanbanColumns }" var="column">
                 <option text="{! column.Name }" value="{! column.Id }" selected=""/>
             </aura:iteration>
