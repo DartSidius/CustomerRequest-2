@@ -13,5 +13,20 @@
     },
     handleOnMoveKanbanColumnEvent: function(component, event, helper) {
         helper.moveColumnToOtherBoard(component, event);
+    },
+    handleOnMoveAllKanbanCardsEvent: function(component, event, helper) {
+        let movedKanbanCards = event.getParam("KanbanCards");
+        helper.appendCardsToColumn(component, movedKanbanCards);
+    },
+    handleOnCopyKanbanCardEvent: function(component, event, helper) {
+        let copiedKanbanCard = event.getParam("CopiedKanbanCard");
+        helper.appendCardsToColumn(component, copiedKanbanCard);
+    },
+    handleOnMoveKanbanCardEvent: function(component, event, helper) {
+        let movedKanbanCard = event.getParam("MovedKanbanCard");
+        helper.appendCardsToColumn(component, movedKanbanCard);
+    },
+    onColumnChange: function(component, event, helper) {
+        helper.shareKanbanColumns(component);
     }
 })

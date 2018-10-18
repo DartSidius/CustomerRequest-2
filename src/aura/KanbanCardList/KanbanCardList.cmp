@@ -8,6 +8,8 @@
 
     <aura:handler name="CreateNewCardEvent" event="c:CreateNewCardEvent" action="{! c.handleCreateNewCardEvent }"/>
     <aura:handler name="OnDeleteKanbanCardEvent" event="c:OnDeleteKanbanCardEvent" action="{! c.handleOnDeleteKanbanCardEvent }"/>
+    <aura:handler name="OnCopyKanbanCardEvent" event="c:OnCopyKanbanCardEvent" action="{! c.handleOnCopyKanbanCardEvent }"/>
+    <aura:handler name="OnMoveKanbanCardEvent" event="c:OnMoveKanbanCardEvent" action="{! c.handleOnMoveKanbanCardEvent }"/>
 
     <aura:iteration items="{! v.kanbanCardList }" var="kanbanCard">
         <c:KanbanCard kanbanCard = "{! kanbanCard }" />

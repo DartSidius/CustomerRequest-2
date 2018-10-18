@@ -28,5 +28,17 @@
         });
         kanbanCards.splice(cardIndex, 1);
         component.set("v.kanbanCardList", kanbanCards);
+    },
+    removeCardFromCardList: function(component, event) {
+        let movedKanbanCard = event.getParam("MovedKanbanCard")[0];
+        let currentColumnId = component.get("v.kanbanColumnId");
+        if(movedKanbanCard.KanbanColumn__c !== currentColumnId) {
+            let kanbanCards = component.get("v.kanbanCardList");
+            let cardIndex = kanbanCards.findIndex((element, index, array) => {
+                return element.Id === movedKanbanCard.Id;
+            });
+            kanbanCards.splice(cardIndex, 1);
+            component.set("v.kanbanCardList", kanbanCards);
+        }
     }
 })

@@ -85,7 +85,11 @@
         action.setCallback(this, (response) => {
             let state = response.getState();
             if(state === "SUCCESS") {
-                component.set("v.kanbanCard", response.getReturnValue());
+                let onMoveKanbanCardEvent = component.getEvent("OnMoveKanbanCardEvent");
+                onMoveKanbanCardEvent.setParams({
+                    "MovedKanbanCard": new Array(response.getReturnValue())
+                });
+                onMoveKanbanCardEvent.fire();
             }
         });
 
@@ -101,7 +105,11 @@
         action.setCallback(this, (response) => {
             let state = response.getState();
             if (state === "SUCCESS") {
-                console.log(response.getReturnValue());
+                let onCopyKanbanCardEvent = component.getEvent("OnCopyKanbanCardEvent");
+                onCopyKanbanCardEvent.setParams({
+                    "CopiedKanbanCard": new Array(response.getReturnValue())
+                });
+                onCopyKanbanCardEvent.fire();
             }
         });
 

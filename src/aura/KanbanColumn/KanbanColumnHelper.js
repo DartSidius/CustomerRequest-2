@@ -45,6 +45,12 @@
             let state = response.getState();
             if(state === "SUCCESS") {
                 console.log("all cards moved");
+                component.set("v.kanbanCards", []);
+                let onMoveAllKanbanCardsEvent = component.getEvent("OnMoveAllKanbanCardsEvent");
+                onMoveAllKanbanCardsEvent.setParams({
+                    "KanbanCards": response.getReturnValue()
+                });
+                onMoveAllKanbanCardsEvent.fire();
             }
         });
 
@@ -161,5 +167,16 @@
         });
 
         $A.enqueueAction(action);
+    },
+    appendCards: function(component, event) {
+        let params = event.getParam("arguments");
+        if(params) {
+            let kanbanColumn = component.get("v.kanbanColumn");
+            let kanbanCards = component.get("v.kanbanCards");
+            if(params.kanbanCards[0].KanbanColumn__c === kanbanColumn.Id) {
+                let updatedKanbanCards = kanbanCards.concat(params.kanbanCards);
+                component.set("v.kanbanCards", updatedKanbanCards);
+            }
+        }
     }
 })

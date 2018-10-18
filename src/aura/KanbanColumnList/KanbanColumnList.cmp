@@ -10,11 +10,15 @@
     <aura:handler name="OnDeleteKanbanColumnEvent" event="c:OnDeleteKanbanColumnEvent" action="{! c.handleOnDeleteKanbanColumnEvent }"/>
     <aura:handler name="OnCopyKanbanColumnEvent" event="c:OnCopyKanbanColumnEvent" action="{! c.handleOnCopyKanbanColumnEvent }"/>
     <aura:handler name="OnMoveKanbanColumnEvent" event="c:OnMoveKanbanColumnEvent" action="{! c.handleOnMoveKanbanColumnEvent }"/>
+    <aura:handler name="OnMoveAllKanbanCardsEvent" event="c:OnMoveAllKanbanCardsEvent" action="{! c.handleOnMoveAllKanbanCardsEvent }"/>
+    <aura:handler name="OnCopyKanbanCardEvent" event="c:OnCopyKanbanCardEvent" action="{! c.handleOnCopyKanbanCardEvent }"/>
+    <aura:handler name="OnMoveKanbanCardEvent" event="c:OnMoveKanbanCardEvent" action="{! c.handleOnMoveKanbanCardEvent }"/>
+    <aura:handler name="change" value="{!v.kanbanColumnList}" action="{!c.onColumnChange}"/>
 
     <div>
         <aura:iteration items="{! v.kanbanColumnList }" var="kanbanColumn">
             <div class="KanbanColumnList__column-wrapper">
-                <c:KanbanColumn kanbanColumn = "{! kanbanColumn }" />
+                <c:KanbanColumn kanbanColumn = "{! kanbanColumn }" aura:id="kanbanColumn" />
             </div>
         </aura:iteration>
         <div class="KanbanColumnList__column-wrapper">

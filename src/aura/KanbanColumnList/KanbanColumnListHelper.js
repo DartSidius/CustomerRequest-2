@@ -43,11 +43,24 @@
         let movedKanbanColumn = event.getParam("MovedKanbanColumn");
         if(movedKanbanColumn.KanbanBoard__c !== currentBoardId) {
             let kanbanColumns = component.get("v.kanbanColumnList");
-            let cardIndex = kanbanColumns.findIndex((element, index, array) => {
+            let columnIndex = kanbanColumns.findIndex((element, index, array) => {
                 return element.Id === movedKanbanColumn.Id;
             });
-            kanbanColumns.splice(cardIndex, 1);
+            kanbanColumns.splice(columnIndex, 1);
             component.set("v.kanbanColumnList", kanbanColumns);
         }
+    },
+    appendCardsToColumn: function(component, kanbanCards) {
+        let kanbanColumns = component.find("kanbanColumn");
+        kanbanColumns.forEach(e => {
+            e.appendCardsToColumn(kanbanCards);
+        })
+    },
+    shareKanbanColumns: function(component) {
+        let shareKanbanColumnsEvent = $A.get("e.c:ShareKanbanColumnsEvent");
+        shareKanbanColumnsEvent.setParams({
+            "KanbanColumns": component.get("v.kanbanColumnList")
+        });
+        shareKanbanColumnsEvent.fire();
     }
 })

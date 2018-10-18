@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 18.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="OnMoveKanbanCardEvent">
+    <aura:attribute type="KanbanCard__c[]" name="MovedKanbanCard"/>
+</aura:event>

@@ -22,5 +22,14 @@
     },
     handleMoveAllKanbanCardsEvent: function(component, event, helper) {
         helper.moveAllKanbanCardsToOtherColumn(component, event);
+    },
+    appendCards: function(component, event, helper) {
+        helper.appendCards(component, event);
+    },
+    handleOnCopyKanbanCardEvent: function(component, event, helper) {
+        console.log(event.getParam("CopiedKanbanCard"));
+    },
+    handleOnMoveKanbanCardEvent: function(component, event, helper) {
+        console.log(event.getParam("MovedKanbanCard"));
     }
 })
