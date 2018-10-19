@@ -5,6 +5,7 @@
     showCreateColumnForm: function (component, event, helper) {
         helper.showCreateColumnForm(component);
     },
+
     createNewColumn: function(component, event, helper) {
         helper.createNewColumn(component);
     }

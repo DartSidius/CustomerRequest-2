@@ -2,7 +2,8 @@
  - Created by Vladyslav Lyfar on 05.10.2018.
  -->
 
-<aura:component description="CreateColumnForm">
+<aura:component description="CreateColumnForm" extends="c:Column">
+
     <aura:attribute type="Boolean" name="isCreateColumnFormOpened" default="false" />
     <aura:attribute type="KanbanColumn__c" name="newKanbanColumn"
                     default="{'sobjectType': 'KanbanColumn__c',

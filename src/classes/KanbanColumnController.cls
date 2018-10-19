@@ -5,6 +5,12 @@
 public with sharing class KanbanColumnController {
 
     @AuraEnabled
+    public static List<KanbanColumn__c> getAllKanbanBoardColumns(Id currentId) {
+        return new KanbanColumnService().getAllKanbanBoardColumns(currentId);
+    }
+
+
+    @AuraEnabled
     public static KanbanColumn__c createNewKanbanColumn(KanbanColumn__c kanbanColumn) {
         return new KanbanColumnService().createNewKanbanColumn(kanbanColumn);
     }

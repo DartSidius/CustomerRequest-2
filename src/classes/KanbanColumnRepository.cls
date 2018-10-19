@@ -6,6 +6,11 @@ public class KanbanColumnRepository {
 
     public static List<KanbanColumn__c> getAllKanbanColumnsByBoardId(Id id) {
         return [SELECT Id, Name
+                    , (
+                            SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
+                            FROM KanbanCards__r
+                            ORDER BY CreatedDate ASC
+                        )
                 FROM KanbanColumn__c
                 WHERE KanbanBoard__c = :id];
     }

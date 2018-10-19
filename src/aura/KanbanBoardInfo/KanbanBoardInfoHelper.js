@@ -7,6 +7,7 @@
         isRenameFormOpened = !isRenameFormOpened;
         component.set("v.isRenameFormOpened", isRenameFormOpened);
     },
+
     renameKanbanBoard: function(component) {
         let renameKanbanBoardEvent = component.getEvent("RenameKanbanBoardEvent");
         renameKanbanBoardEvent.setParams({

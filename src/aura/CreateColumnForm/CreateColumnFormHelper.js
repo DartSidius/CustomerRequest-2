@@ -7,6 +7,7 @@
         isCreateColumnFormOpened = !isCreateColumnFormOpened;
         component.set("v.isCreateColumnFormOpened", isCreateColumnFormOpened);
     },
+
     createNewColumn: function (component) {
         let createNewColumnEvent = component.getEvent("CreateNewColumnEvent");
         let newKanbanColumn = component.get("v.newKanbanColumn");

@@ -2,6 +2,28 @@
  * Created by Vladyslav Lyfar on 11.10.2018.
  */
 ({
+    getAllKanbanBoardColumns: function(component) {
+        const action = component.get("c.getAllKanbanBoardColumns");
+        action.setParams({
+            "currentId": component.get("v.kanbanBoardId")
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                let kanbanColumnList = response.getReturnValue();
+                component.set("v.kanbanColumnList", kanbanColumnList);
+
+                let shareKanbanColumnsEvent = $A.get("e.c:ShareKanbanColumnsEvent");
+                shareKanbanColumnsEvent.setParams({
+                    "KanbanColumns": kanbanColumnList
+                });
+                shareKanbanColumnsEvent.fire();
+            }
+        });
+
+        $A.enqueueAction(action);
+    },
+
     handleCreateNewColumnEvent: function(component, event) {
         let action = component.get("c.createNewKanbanColumn");
         let kanbanColumn = event.getParam("KanbanColumn");
@@ -20,6 +42,7 @@
 
         $A.enqueueAction(action);
     },
+
     removeDeletedColumnFromList: function(component, event) {
         let kanbanColumns = component.get("v.kanbanColumnList");
         let columnToDelete = event.getParam("DeletedKanbanColumn");
@@ -29,6 +52,7 @@
         kanbanColumns.splice(cardIndex, 1);
         component.set("v.kanbanColumnList", kanbanColumns);
     },
+
     insertNewColumnToList: function(component, event) {
         let currentBoardId = component.get("v.kanbanBoardId");
         let copiedKanbanColumn = event.getParam("CopiedKanbanColumn");
@@ -38,6 +62,7 @@
             component.set("v.kanbanColumnList", kanbanColumns);
         }
     },
+
     moveColumnToOtherBoard: function(component, event) {
         let currentBoardId = component.get("v.kanbanBoardId");
         let movedKanbanColumn = event.getParam("MovedKanbanColumn");
@@ -50,12 +75,14 @@
             component.set("v.kanbanColumnList", kanbanColumns);
         }
     },
+
     appendCardsToColumn: function(component, kanbanCards) {
         let kanbanColumns = component.find("kanbanColumn");
         kanbanColumns.forEach(e => {
             e.appendCardsToColumn(kanbanCards);
         })
     },
+
     shareKanbanColumns: function(component) {
         let shareKanbanColumnsEvent = $A.get("e.c:ShareKanbanColumnsEvent");
         shareKanbanColumnsEvent.setParams({

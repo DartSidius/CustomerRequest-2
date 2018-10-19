@@ -3,7 +3,7 @@
  */
 .THIS {
 }
-.THIS.slds-box {
+.THIS .slds-box {
     padding: .5rem;
     background-color: #fff;
 }

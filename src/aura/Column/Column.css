@@ -1,0 +1,18 @@
+/**
+ * Created by Vladyslav Lyfar on 19.10.2018.
+ */
+.THIS {
+}
+
+.THIS.KanbanColumnList__column-wrapper {
+    width: 270px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: .5rem;
+    background: transparent;
+}
+.THIS .slds-box {
+    padding: .5rem;
+    background-color: #fff;
+}

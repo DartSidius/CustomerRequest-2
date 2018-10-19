@@ -1,0 +1,10 @@
+<!--
+ - Created by Vladyslav Lyfar on 19.10.2018.
+ -->
+
+<aura:component description="Column" extensible="true" abstract="true">
+
+    <div class="KanbanColumnList__column-wrapper">
+        {!v.body}
+    </div>
+</aura:component>
