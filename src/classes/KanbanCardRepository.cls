@@ -35,7 +35,12 @@ public with sharing class KanbanCardRepository {
     }
 
     public static List<KanbanCard__c> getAllKanbanCardsByColumnId(Id columnId) {
-        return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c
+        return [SELECT Id, Name, KanbanColumn__c, Description__c, DueDate__c,
+                (
+                    SELECT Id, Name, FileUrl__c
+                    FROM KanbanFiles__r
+                    ORDER BY CreatedDate ASC
+                )
                 FROM KanbanCard__c
                 WHERE KanbanColumn__c = :columnId
                 ORDER BY CreatedDate ASC];

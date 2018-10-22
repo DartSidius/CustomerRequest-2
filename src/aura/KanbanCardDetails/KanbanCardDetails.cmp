@@ -5,8 +5,12 @@
 <aura:component controller="KanbanCardController">
     <aura:attribute type="Boolean" name="isDescriptionFormOpened" default="false" />
     <aura:attribute type="Boolean" name="isDateTimeFormOpened" default="false" />
+    <aura:attribute type="Boolean" name="isAttachFileFormOpened" default="false" />
+    <aura:attribute type="Boolean" name="isFileInputFieldDisabled" default="true"/>
     <aura:attribute type="KanbanCard__c" name="kanbanCard"/>
+    <aura:attribute type="KanbanFile__c" name="kanbanCardFiles"/>
 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="UpdateKanbanCardColumnEvent" event="c:UpdateKanbanCardColumnEvent"
                   action="{! c.handleUpdateKanbanCardColumnEvent }"/>
 
@@ -40,6 +44,64 @@
                         <lightning:button variant="destructive" onclick="{! c.showDescriptionForm }" label="Cancel" />
                     </div>
                 </div>
+            </aura:if>
+
+        </article>
+        <article class="KanbanCardDetails__article">
+            <h1 class="KanbanCardDetails__article-title slds-text-heading_small slds-m-bottom--xxx-small">Attachments</h1>
+
+            <aura:if isTrue="{! !v.isAttachFileFormOpened }">
+                <lightning:buttonIcon iconName="utility:attach" onclick="{! c.showAttachFileForm }" alternativeText="Attach" />
+            </aura:if>
+
+            <aura:if isTrue="{! v.isAttachFileFormOpened }">
+                <div class="KanbanCardDetails__form">
+                    <div>
+                        <lightning:select aura:id="selectFileService" onchange="{! c.selectFileExchangeService }"
+                                          name="selectFileExchangeService"
+                                          label="Select file storage service"
+                                          class="slds-m-bottom--x-small">
+                            <option text="Select file storage service" disabled="true" value="" selected="true"></option>
+                            <option text="Dropbox" value="Dropbox" selected=""></option>
+                        </lightning:select>
+                        <lightning:input name="kanbanCardAttachment"
+                                         disabled="{! v.isFileInputFieldDisabled }"
+                                         type="file"
+                                         label="Your attachment"
+                                         onchange="{! c.uploadFileToRemoteStorageMethod }"/>
+                    </div>
+                    <div class="slds-button-group-row">
+                        <lightning:button variant="destructive" onclick="{! c.showAttachFileForm }" label="Cancel" />
+                    </div>
+                </div>
+            </aura:if>
+
+            <aura:if isTrue="{! v.kanbanCardFiles.length > 0 }">
+                <lightning:layout class="KanbanCardDetails-attachments-list">
+                    <aura:iteration items="{! v.kanbanCardFiles }" var="file">
+                        <lightning:layoutItem padding="around-small" class="KanbanCardDetails-attachments-list__item-cover">
+                            <div class="KanbanCardDetails-attachments-list__item">
+                                <a href="{! file.FileUrl__c }" target="_blank"
+                                   class="KanbanCardDetails-attachments-list__view-link slds-is-absolute">
+                                    View file
+                                </a>
+                                <lightning:icon iconName="utility:file" size="large" alternativeText="File"/>
+                                <lightning:buttonIcon class="KanbanCardDetails-attachments-list__remove-btn"
+                                                      iconName="utility:close"
+                                                      onclick="{! c.deleteAttachment }"
+                                                      alternativeText="Delete file" />
+                            </div>
+                        </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+            </aura:if>
+
+            <aura:if isTrue="{! v.kanbanCardFiles.length == 0 }">
+                <lightning:layout>
+                    <lightning:layoutItem padding="around-small">
+                        No attachments
+                    </lightning:layoutItem>
+                </lightning:layout>
             </aura:if>
 
         </article>
