@@ -38,8 +38,34 @@
     deleteAttachment: function(component, event) {
         console.log("deleted");
     },
-    uploadFilesToDropbox: function(event) {
-        console.log("Dropbox");
+    uploadFilesToDropbox: function(component, event) {
+        let file = event.getSource().get("v.files")[0];
+        let fileReader = new FileReader();
+        let self = this;
+        fileReader.readAsDataURL(file);
+        fileReader.onload = function() {
+            let encodedFile = fileReader.result;
+            self.saveAttachment(component, encodedFile);
+        };
+        fileReader.onerror = function(error) {
+            console.log('Error: ', error);
+        };
+    },
+    saveAttachment: function(component, encodedFile) {
+        let action = component.get("c.saveKanbanCardFileToDropbox");
+        action.setParams({
+            "base64File": encodedFile
+        });
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log(response.getReturnValue());
+            } else {
+                console.log(state);
+            }
+        });
+
+        $A.enqueueAction(action);
     },
     saveKanbanCard: function(component) {
         let action = component.get("c.updateKanbanCard");

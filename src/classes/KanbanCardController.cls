@@ -24,4 +24,10 @@ public with sharing class KanbanCardController {
         return new KanbanCardService().deleteKanbanCard(kanbanCard);
     }
 
+    @AuraEnabled
+    public static String saveKanbanCardFileToDropbox(String base64File) {
+        String base64Data = EncodingUtil.urlDecode(base64File, 'UTF-8');
+        return base64Data;
+    }
+
 }

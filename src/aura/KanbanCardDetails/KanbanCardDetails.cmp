@@ -67,8 +67,10 @@
                         <lightning:input name="kanbanCardAttachment"
                                          disabled="{! v.isFileInputFieldDisabled }"
                                          type="file"
+                                         aura:id="kanbanAttachment"
                                          label="Your attachment"
-                                         onchange="{! c.uploadFileToRemoteStorageMethod }"/>
+                                         onchange="{! c.uploadFileToRemoteStorageMethod }"
+                                         multiple="false"/>
                     </div>
                     <div class="slds-button-group-row">
                         <lightning:button variant="destructive" onclick="{! c.showAttachFileForm }" label="Cancel" />
@@ -86,10 +88,10 @@
                                     View file
                                 </a>
                                 <lightning:icon iconName="utility:file" size="large" alternativeText="File"/>
-                                <lightning:buttonIcon class="KanbanCardDetails-attachments-list__remove-btn"
-                                                      iconName="utility:close"
-                                                      onclick="{! c.deleteAttachment }"
-                                                      alternativeText="Delete file" />
+                                <!--<lightning:buttonIcon class="KanbanCardDetails-attachments-list__remove-btn"-->
+                                                      <!--iconName="utility:close"-->
+                                                      <!--onclick="{! c.deleteAttachment }"-->
+                                                      <!--alternativeText="Delete file" />-->
                             </div>
                         </lightning:layoutItem>
                     </aura:iteration>
