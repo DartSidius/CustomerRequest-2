@@ -6,26 +6,37 @@ public with sharing class ExternalServicesAPI {
 
     public class DropboxAPI {
 
-        private String accessToken = '';
+        private String accessToken = 'c6TzLjmN86AAAAAAAAAAQdj6nU9RmKTqBwKT5maaTn91_PHY0VDNI0RWWdUiCQZ5';
+        private final String dropboxFolderName = 'KanbanCardsAttachments';
 
         public DropboxAPI() {
 
         }
 
-        public void createNewFileRequest() {
-            String url =  KanbanConstants.dropBoxApiUrl + '/2/file_requests/create';
-            String body = '{"title": "Homework submission","destination": "/File Requests/KanbanCardsAttachments","open": true}';
-            HttpResponse response = this.makeHttpCallout(url, 'POST', body);
+        public HttpResponse addNewFile(String fileName, String base64file) {
+            Http http = new Http();
+            HttpRequest httpRequest = new HttpRequest();
+            httpRequest.setEndpoint(KanbanConstants.dropBoxContentApiUrl + '/2/files/upload');
+
+            httpRequest.setMethod('POST');
+
+            httpRequest.setHeader('Authorization', 'Bearer ' + accessToken);
+            httpRequest.setHeader('Dropbox-API-Arg', '{"path": "/' + dropboxFolderName + '/' + fileName + '", "mode": "add", "autorename": true, "mute": false, "strict_conflict": false}');
+            httpRequest.setHeader('Content-Type', 'application/octet-stream');
+            httpRequest.setHeader('Accept', 'application/json');
+
+            if (String.isNotBlank(base64file)) {
+                httpRequest.setBodyAsBlob(EncodingUtil.base64Decode(base64file));
+            }
+
+            HttpResponse httpResponse = http.send(httpRequest);
+            return httpResponse;
         }
 
-        public void createNewFolder() {
-            String url = KanbanConstants.dropBoxApiUrl + '/2/files/create_folder_v2';
-            String body = '{"path": "/KanbanCardsAttachments", "autorename": false}';
-            HttpResponse response = this.makeHttpCallout(url, 'POST', body);
-        }
-
-        public void addNewFile(Blob file) {
-            String url = KanbanConstants.dropBoxContentApiUrl + '/2/files/upload';
+        public HttpResponse createSharedLink(String fileName) {
+            String url = KanbanConstants.dropBoxApiUrl + '/2/sharing/create_shared_link_with_settings';
+            String body = '{"path": "/' + dropboxFolderName + '/' + fileName + '", "settings": {"requested_visibility": "public"}}';
+            return makeHttpCallout(url, 'POST', body);
         }
 
         private String getAccessToken() {

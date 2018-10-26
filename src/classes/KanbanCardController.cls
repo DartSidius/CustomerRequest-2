@@ -25,9 +25,8 @@ public with sharing class KanbanCardController {
     }
 
     @AuraEnabled
-    public static String saveKanbanCardFileToDropbox(String base64File) {
-        String base64Data = EncodingUtil.urlDecode(base64File, 'UTF-8');
-        return base64Data;
+    public static KanbanFile__c saveKanbanCardFileToDropbox(Id kanbanCardId, String fileName, String base64File) {
+        return new KanbanCardService().addAttachmentRelatedToKanbanCard(kanbanCardId, fileName, base64File);
     }
 
 }

@@ -8,7 +8,7 @@
     <aura:attribute type="Boolean" name="isAttachFileFormOpened" default="false" />
     <aura:attribute type="Boolean" name="isFileInputFieldDisabled" default="true"/>
     <aura:attribute type="KanbanCard__c" name="kanbanCard"/>
-    <aura:attribute type="KanbanFile__c" name="kanbanCardFiles"/>
+    <aura:attribute type="KanbanFile__c[]" name="kanbanCardFiles"/>
 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="UpdateKanbanCardColumnEvent" event="c:UpdateKanbanCardColumnEvent"
