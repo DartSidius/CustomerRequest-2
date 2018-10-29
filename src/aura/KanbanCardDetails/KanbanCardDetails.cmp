@@ -13,6 +13,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="UpdateKanbanCardColumnEvent" event="c:UpdateKanbanCardColumnEvent"
                   action="{! c.handleUpdateKanbanCardColumnEvent }"/>
+    <aura:handler name="OnDeleteKanbanFileEvent" event="c:OnDeleteKanbanFileEvent"
+                  action="{! c.handleOnDeleteKanbanFileEvent }"/>
 
     <div>
         <article class="KanbanCardDetails__article">
@@ -82,17 +84,7 @@
                 <lightning:layout class="KanbanCardDetails-attachments-list">
                     <aura:iteration items="{! v.kanbanCardFiles }" var="file">
                         <lightning:layoutItem padding="around-small" class="KanbanCardDetails-attachments-list__item-cover">
-                            <div class="KanbanCardDetails-attachments-list__item">
-                                <a href="{! file.FileUrl__c }" target="_blank"
-                                   class="KanbanCardDetails-attachments-list__view-link slds-is-absolute">
-                                    View file
-                                </a>
-                                <lightning:icon iconName="utility:file" size="large" alternativeText="File"/>
-                                <!--<lightning:buttonIcon class="KanbanCardDetails-attachments-list__remove-btn"-->
-                                                      <!--iconName="utility:close"-->
-                                                      <!--onclick="{! c.deleteAttachment }"-->
-                                                      <!--alternativeText="Delete file" />-->
-                            </div>
+                            <c:kanbanFile file="{! file }"/>
                         </lightning:layoutItem>
                     </aura:iteration>
                 </lightning:layout>

@@ -1,0 +1,7 @@
+<!--
+ - Created by Vladyslav Lyfar on 29.10.2018.
+ -->
+
+<aura:event type="COMPONENT" description="OnDeleteKanbanFileEvent">
+    <aura:attribute name="DeletedKanbanFile" type="KanbanFile__c"/>
+</aura:event>

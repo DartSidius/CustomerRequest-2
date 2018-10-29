@@ -35,9 +35,6 @@
     uploadFileToRemoteStorageMethod: function(component,event) {
 
     },
-    deleteAttachment: function(component, event) {
-        console.log("deleted");
-    },
     uploadFilesToDropbox: function(component, event) {
         let file = event.getSource().get("v.files")[0];
         let fileName = file.name;
@@ -92,6 +89,13 @@
 
         $A.enqueueAction(action);
     },
+    deleteKanbanFileFromList: function(component, event) {
+        let kanbanFiles = component.get("v.kanbanCardFiles");
+        let kanbanFileToDelete = event.getParam("KanbanFileToDelete");
+        let indexToDelete = kanbanFiles.indexOf(kanbanFileToDelete);
+        kanbanFiles.splice(indexToDelete, 1);
+        component.set("v.kanbanCardFiles", kanbanFiles);
+    },
     handleUpdateKanbanCardColumnEvent: function(component, event) {
         let action = component.get("c.updateKanbanCard");
         let newKanbanColumnId = event.getParam("NewKanbanCardColumnId");
@@ -121,5 +125,6 @@
             "message": message
         });
         toastEvent.fire();
-    }
+    },
+
 })

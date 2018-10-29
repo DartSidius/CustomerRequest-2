@@ -29,7 +29,7 @@
     uploadFileToRemoteStorageMethod: function(component, event, helper) {
         helper.uploadFileToRemoteStorageMethod(component, event);
     },
-    deleteAttachment: function(component, event, helper) {
-        helper.deleteAttachment(component, event);
+    handleOnDeleteKanbanFileEvent: function(component, event, helper) {
+        helper.deleteKanbanFileFromList(component, event);
     }
 })

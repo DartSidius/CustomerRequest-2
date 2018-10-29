@@ -1,0 +1,21 @@
+<!--
+ - Created by Vladyslav Lyfar on 29.10.2018.
+ -->
+
+<aura:component description="kanbanFile" controller="KanbanFileController">
+    <aura:attribute name="file" type="KanbanFile__c"/>
+
+    <aura:registerEvent name="OnDeleteKanbanFileEvent" type="c:OnDeleteKanbanFileEvent"/>
+
+    <div class="KanbanCardDetails-attachments-list__item">
+        <a href="{! v.file.FileUrl__c }" target="_blank"
+           class="KanbanCardDetails-attachments-list__view-link slds-is-absolute">
+            View file
+        </a>
+        <lightning:icon iconName="utility:file" size="large" alternativeText="File"/>
+        <lightning:buttonIcon class="KanbanCardDetails-attachments-list__remove-btn"
+                              iconName="utility:close"
+                              onclick="{! c.deleteAttachment }"
+                              alternativeText="Delete file" />
+    </div>
+</aura:component>

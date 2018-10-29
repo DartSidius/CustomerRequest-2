@@ -6,7 +6,7 @@ public with sharing class ExternalServicesAPI {
 
     public class DropboxAPI {
 
-        private String accessToken = 'c6TzLjmN86AAAAAAAAAAQdj6nU9RmKTqBwKT5maaTn91_PHY0VDNI0RWWdUiCQZ5';
+        private String accessToken = 'c6TzLjmN86AAAAAAAAAAZzEBI_CDSPY_YjPwYMWPp1MADduOMYFhsgmv36Ikzc0q';
         private final String dropboxFolderName = 'KanbanCardsAttachments';
 
         public DropboxAPI() {
@@ -36,6 +36,12 @@ public with sharing class ExternalServicesAPI {
         public HttpResponse createSharedLink(String fileName) {
             String url = KanbanConstants.dropBoxApiUrl + '/2/sharing/create_shared_link_with_settings';
             String body = '{"path": "/' + dropboxFolderName + '/' + fileName + '", "settings": {"requested_visibility": "public"}}';
+            return makeHttpCallout(url, 'POST', body);
+        }
+
+        public HttpResponse deleteFileFromDropbox(String fileName) {
+            String url = KanbanConstants.dropBoxApiUrl + '/2/files/delete_v2';
+            String body = '{"path": "/' + dropboxFolderName + '/' + fileName + '"}';
             return makeHttpCallout(url, 'POST', body);
         }
 
