@@ -8,9 +8,15 @@ public with sharing class ExternalServicesAPI {
 
         private String accessToken = 'c6TzLjmN86AAAAAAAAAAZzEBI_CDSPY_YjPwYMWPp1MADduOMYFhsgmv36Ikzc0q';
         private final String dropboxFolderName = 'KanbanCardsAttachments';
+        private final String authorizeString =
+                'https://www.dropbox.com/oauth2/authorize?client_id=fzjme6a3fotawvs&response_type=code&redirect_uri=https://cunning-goat-l5flx3-dev-ed.lightning.force.com/c/DropboxAPICallback.app';
+        private final String authCode = 'c6TzLjmN86AAAAAAAAAAaWa6QQ7T_9pVudENud_mu1A';
+        private final String clientSecret = '4wo5lgqkalu2b51';
+        private final String clientId = 'fzjme6a3fotawvs';
+        private final String redirectURI = 'https://cunning-goat-l5flx3-dev-ed.lightning.force.com/c/DropboxAPICallback.app';
 
         public DropboxAPI() {
-
+            //this.accessTokenToken = test();
         }
 
         public HttpResponse addNewFile(String fileName, String base64file) {
@@ -21,7 +27,7 @@ public with sharing class ExternalServicesAPI {
             httpRequest.setMethod('POST');
 
             httpRequest.setHeader('Authorization', 'Bearer ' + accessToken);
-            httpRequest.setHeader('Dropbox-API-Arg', '{"path": "/' + dropboxFolderName + '/' + fileName + '", "mode": "add", "autorename": true, "mute": false, "strict_conflict": false}');
+            httpRequest.setHeader('Dropbox-API-Arg', '{"path": "/' + dropboxFolderName + '/' + fileName + '", "mode":{".tag":"add"}, "autorename":true }');
             httpRequest.setHeader('Content-Type', 'application/octet-stream');
             httpRequest.setHeader('Accept', 'application/json');
 
@@ -45,9 +51,30 @@ public with sharing class ExternalServicesAPI {
             return makeHttpCallout(url, 'POST', body);
         }
 
-        private String getAccessToken() {
-            String token = '';
-            return token;
+        public String getAccessToken(String authorizationCode) {
+            Http http = new Http();
+            HttpRequest httpRequest = new HttpRequest();
+            httpRequest.setEndpoint(KanbanConstants.dropBoxApiUrl + '/oauth2/token?code=' + authorizationCode +
+                    '&client_secret=' + clientSecret +
+                    '&grant_type=authorization_code' +
+                    '&client_id=' + clientId +
+                    '&redirect_uri=' + redirectURI);
+            httpRequest.setMethod('POST');
+
+            httpRequest.setHeader('Accept', 'application/json');
+
+            HttpResponse httpResponse = http.send(httpRequest);
+            if(httpResponse.getStatusCode() == 200) {
+                Map<String, Object> tokenResponseMap = (Map<String, Object>) JSON.deserializeUntyped(httpResponse.getBody());
+                String accessToken = (String) tokenResponseMap.get('access_token');
+                DropboxAPIAccess__c dropboxAPIAccessCS = DropboxAPIAccess__c.getInstance();
+                dropboxAPIAccessCS.Access_Token__c = accessToken;
+                dropboxAPIAccessCS.Token_Expire_Date__c = Date.today().addDays(14);
+                update dropboxAPIAccessCS;
+                return accessToken;
+            }
+
+            return null;
         }
 
         private HttpResponse makeHttpCallout(String url, String method, String body) {

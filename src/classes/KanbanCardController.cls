@@ -5,6 +5,11 @@
 public with sharing class KanbanCardController {
 
     @AuraEnabled
+    public static Boolean checkAuthorization() {
+        return new AuthorizationService().checkAuthorization();
+    }
+
+    @AuraEnabled
     public static KanbanCard__c createNewKanbanCard(KanbanCard__c kanbanCard) {
         return new KanbanCardService().createNewKanbanCard(kanbanCard);
     }

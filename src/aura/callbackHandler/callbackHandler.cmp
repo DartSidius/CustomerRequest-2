@@ -1,0 +1,9 @@
+<!--
+ - Created by Vladyslav Lyfar on 30.10.2018.
+ -->
+
+<aura:component description="callbackHandler" controller="AuthorizationController">
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+</aura:component>

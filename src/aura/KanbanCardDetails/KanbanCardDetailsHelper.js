@@ -37,10 +37,10 @@
     },
     uploadFilesToDropbox: function(component, event) {
         let file = event.getSource().get("v.files")[0];
-        let fileName = file.name;
+        let fileName = file.name.length < 80 ? file.name : file.name.substring(0, 79);
         let fileReader = new FileReader();
         let self = this;
-        self.showSuccessToast("File has been added successfully!");
+
         fileReader.readAsDataURL(file);
         fileReader.onload = function() {
             let encodedFile = fileReader.result;
@@ -48,32 +48,63 @@
             let start = encodedFile.indexOf(base64) + base64.length;
             encodedFile = encodedFile.substring(start);
 
-            let action = component.get("c.saveKanbanCardFileToDropbox");
-            action.setParams({
-                "kanbanCardId": component.get("v.kanbanCard").Id,
-                "fileName": fileName,
-                "base64File": encodedFile
-            });
+            let action = component.get("c.checkAuthorization");
             action.setCallback(this, (response) => {
                 let state = response.getState();
                 if(state === "SUCCESS") {
-                    let result = response.getReturnValue();
-                    if(result !== null) {
-                        let kanbanCardFiles = component.get("v.kanbanCardFiles");
-                        kanbanCardFiles.push(result);
-                        component.set("v.kanbanCardFiles", kanbanCardFiles);
-                        self.showSuccessToast("File has been added successfully!");
+                    let isAuth = response.getReturnValue();
+                    if(!isAuth) {
+                        self.goToAuthorizationPage();
+                    } else {
+                        let action = component.get("c.saveKanbanCardFileToDropbox");
+                        action.setParams({
+                            "kanbanCardId": component.get("v.kanbanCard").Id,
+                            "fileName": fileName,
+                            "base64File": encodedFile
+                        });
+                        action.setCallback(this, (response) => {
+                            let state = response.getState();
+                            if(state === "SUCCESS") {
+                                let result = response.getReturnValue();
+                                console.log(result);
+                                if(result !== null) {
+                                    let kanbanCardFiles = component.get("v.kanbanCardFiles");
+                                    kanbanCardFiles.push(result);
+                                    component.set("v.kanbanCardFiles", kanbanCardFiles);
+                                    self.showSuccessToast("File has been added successfully!");
+                                }
+                            } else {
+                                console.log(state);
+                            }
+                        });
+
+                        $A.enqueueAction(action);
                     }
+
                 } else {
                     console.log(state);
                 }
             });
 
             $A.enqueueAction(action);
+
         };
         fileReader.onerror = function(error) {
             console.log('Error: ', error);
         };
+    },
+    checkAuthorization: function(component) {
+        let action = component.get("c.checkAuthorization");
+        action.setCallback(this, (response) => {
+            let state = response.getState();
+            if(state === "SUCCESS") {
+                console.log(response.getReturnValue());
+            } else {
+                console.log(state);
+            }
+        });
+
+        $A.enqueueAction(action);
     },
     saveKanbanCard: function(component) {
         let action = component.get("c.updateKanbanCard");
@@ -126,5 +157,12 @@
         });
         toastEvent.fire();
     },
-
+    goToAuthorizationPage: function() {
+        // let urlEvent = $A.get("e.force:navigateToURL");
+        // urlEvent.setParams({
+        //     "url": "https://www.dropbox.com/oauth2/authorize?client_id=fzjme6a3fotawvs&response_type=code&redirect_uri=https://cunning-goat-l5flx3-dev-ed.lightning.force.com/c/DropboxAPICallback.app"
+        // });
+        // urlEvent.fire();
+        location.assign("https://www.dropbox.com/oauth2/authorize?client_id=fzjme6a3fotawvs&response_type=code&redirect_uri=https://cunning-goat-l5flx3-dev-ed.lightning.force.com/c/DropboxAPICallback.app");
+    }
 })
