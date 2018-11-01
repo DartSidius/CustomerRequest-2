@@ -4,14 +4,17 @@
 
 public class KanbanFileService {
 
-    public KanbanFile__c deleteKanbanFile(KanbanFile__c kanbanFile) {
+    @future (callout=true)
+    public static void deleteKanbanFile(Id kanbanFileId, String kanbanFileName) {
         ExternalServicesAPI.DropboxAPI dropboxAPI = new ExternalServicesAPI.DropboxAPI();
-        HttpResponse deleteFileResponse = dropboxAPI.deleteFileFromDropbox(kanbanFile.Name);
+        HttpResponse deleteFileResponse = dropboxAPI.deleteFileFromDropbox(kanbanFileName);
         if(deleteFileResponse.getStatusCode() == 200) {
-            delete kanbanFile;
-            return kanbanFile;
+            delete [
+                    SELECT Id
+                    FROM KanbanFile__c
+                    WHERE Id = :kanbanFileId
+            ];
         }
-        return null;
     }
 
 }
