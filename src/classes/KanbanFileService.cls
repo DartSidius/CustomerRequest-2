@@ -9,12 +9,12 @@ public class KanbanFileService {
         ExternalServicesAPI.DropboxAPI dropboxAPI = new ExternalServicesAPI.DropboxAPI();
         HttpResponse deleteFileResponse = dropboxAPI.deleteFileFromDropbox(kanbanFileName);
         if(deleteFileResponse.getStatusCode() == 200) {
-            delete [
-                    SELECT Id
-                    FROM KanbanFile__c
-                    WHERE Id = :kanbanFileId
-            ];
+            KanbanFileRepository.deleteKanbanFileById(kanbanFileId);
         }
+    }
+
+    public KanbanFile__c deleteKanbanFileFromOrg(KanbanFile__c kanbanFile) {
+        return KanbanFileRepository.deleteKanbanFile(kanbanFile);
     }
 
 }

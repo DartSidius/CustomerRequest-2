@@ -6,8 +6,7 @@ public with sharing class KanbanFileController {
 
     @AuraEnabled
     public static KanbanFile__c deleteKanbanFile(KanbanFile__c kanbanFile) {
-        delete kanbanFile;
-        return kanbanFile;
+        return new KanbanFileService().deleteKanbanFileFromOrg(kanbanFile);
     }
 
 }
