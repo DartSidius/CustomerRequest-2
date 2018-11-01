@@ -7,6 +7,7 @@
         if(redirectLink.includes("?code=")) {
             let authorizationCode = redirectLink.split("?code=")[1];
             let action = component.get("c.getDropboxAccessTokenString");
+            let self = this;
             action.setParams({
                 "authorizationCode": authorizationCode
             });
@@ -16,12 +17,25 @@
                     let result = response.getReturnValue();
                     if(result !== null) {
                         console.log(result);
-                        location.assign("https://cunning-goat-l5flx3-dev-ed.lightning.force.com/lightning/o/KanbanBoard__c/list?filterName=Recent");
+                        component.set("v.message", "You`ve been reauthorized successfully! Redirecting back to your org...");
+                        setTimeout(() => {
+                            location.assign("https://cunning-goat-l5flx3-dev-ed.lightning.force.com/lightning/o/KanbanBoard__c/list?filterName=Recent");
+                        }, 3000);
                     }
                 }
             });
 
             $A.enqueueAction(action);
         }
+    },
+
+    showSuccessToast: function(message) {
+        const toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams({
+            "title": "Success!",
+            "type": "success",
+            "message": message
+        });
+        toastEvent.fire();
     }
 })
