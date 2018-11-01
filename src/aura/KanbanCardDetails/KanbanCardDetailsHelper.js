@@ -6,21 +6,25 @@
         let kanbanCardFiles = component.get("v.kanbanCard").KanbanFiles__r || [];
         component.set("v.kanbanCardFiles", kanbanCardFiles);
     },
+
     showDescriptionForm: function(component) {
         let isDescriptionFormOpened = component.get("v.isDescriptionFormOpened");
         isDescriptionFormOpened = !isDescriptionFormOpened;
         component.set("v.isDescriptionFormOpened", isDescriptionFormOpened);
     },
+
     showDateTimeForm: function(component) {
         let isDateTimeFormOpened = component.get("v.isDateTimeFormOpened");
         isDateTimeFormOpened = !isDateTimeFormOpened;
         component.set("v.isDateTimeFormOpened", isDateTimeFormOpened);
     },
+
     showAttachFileForm: function(component) {
         let isAttachFileFormOpened = component.get("v.isAttachFileFormOpened");
         isAttachFileFormOpened = !isAttachFileFormOpened;
         component.set("v.isAttachFileFormOpened", isAttachFileFormOpened);
     },
+
     selectFileExchangeService: function(component, event) {
         const fileService = component.find("selectFileService").get("v.value");
         if(fileService) {
@@ -32,9 +36,11 @@
                 break;
         }
     },
+
     uploadFileToRemoteStorageMethod: function(component,event) {
 
     },
+
     uploadFilesToDropbox: function(component, event) {
         let file = event.getSource().get("v.files")[0];
         let fileName = file.name.length < 80 ? file.name : file.name.substring(0, 79);
@@ -49,10 +55,9 @@
             encodedFile = encodedFile.substring(start);
 
             let action = component.get("c.checkAuthorization");
-            action.setCallback(this, (response) => {
-                let state = response.getState();
-                if(state === "SUCCESS") {
-                    let isAuth = response.getReturnValue();
+            self.executeAction(component, action).then(
+                $A.getCallback((response) => {
+                    let isAuth = response;
                     if(!isAuth) {
                         self.goToAuthorizationPage();
                     } else {
@@ -62,50 +67,32 @@
                             "fileName": fileName,
                             "base64File": encodedFile
                         });
-                        action.setCallback(this, (response) => {
-                            let state = response.getState();
-                            if(state === "SUCCESS") {
-                                let result = response.getReturnValue();
-                                console.log(result);
-                                if(result !== null) {
-                                    let kanbanCardFiles = component.get("v.kanbanCardFiles");
-                                    kanbanCardFiles.push(result);
-                                    component.set("v.kanbanCardFiles", kanbanCardFiles);
-                                    self.showSuccessToast("File has been added successfully!");
-                                }
-                            } else {
-                                console.log(state);
-                            }
-                        });
-
-                        $A.enqueueAction(action);
+                        return self.executeAction(component, action);
                     }
-
-                } else {
-                    console.log(state);
-                }
-            });
-
-            $A.enqueueAction(action);
-
+                })
+            )
+                .then(
+                    $A.getCallback((response) => {
+                        console.log(response);
+                        if(response !== null) {
+                            let kanbanCardFiles = component.get("v.kanbanCardFiles");
+                            kanbanCardFiles.push(response);
+                            component.set("v.kanbanCardFiles", kanbanCardFiles);
+                            self.showSuccessToast("File has been added successfully!");
+                        }
+                    })
+                )
+                .catch(
+                    $A.getCallback((error) => {
+                        alert('An error occurred : ' + error.message);
+                    })
+                )
         };
         fileReader.onerror = function(error) {
             console.log('Error: ', error);
         };
     },
-    checkAuthorization: function(component) {
-        let action = component.get("c.checkAuthorization");
-        action.setCallback(this, (response) => {
-            let state = response.getState();
-            if(state === "SUCCESS") {
-                console.log(response.getReturnValue());
-            } else {
-                console.log(state);
-            }
-        });
 
-        $A.enqueueAction(action);
-    },
     saveKanbanCard: function(component) {
         let action = component.get("c.updateKanbanCard");
         action.setParams({
@@ -120,6 +107,7 @@
 
         $A.enqueueAction(action);
     },
+
     deleteKanbanFileFromList: function(component, event) {
         let kanbanFiles = component.get("v.kanbanCardFiles");
         let kanbanFileToDelete = event.getParam("KanbanFileToDelete");
@@ -127,6 +115,7 @@
         kanbanFiles.splice(indexToDelete, 1);
         component.set("v.kanbanCardFiles", kanbanFiles);
     },
+
     handleUpdateKanbanCardColumnEvent: function(component, event) {
         let action = component.get("c.updateKanbanCard");
         let newKanbanColumnId = event.getParam("NewKanbanCardColumnId");
@@ -144,10 +133,12 @@
 
         $A.enqueueAction(action);
     },
+
     togglePopover: function(component) {
         let customPopover = component.find("customPopover");
         $A.util.toggleClass(customPopover, "is-show");
     },
+
     showSuccessToast: function(message) {
         const toastEvent = $A.get("e.force:showToast");
         toastEvent.setParams({
@@ -157,12 +148,30 @@
         });
         toastEvent.fire();
     },
+
     goToAuthorizationPage: function() {
-        // let urlEvent = $A.get("e.force:navigateToURL");
-        // urlEvent.setParams({
-        //     "url": "https://www.dropbox.com/oauth2/authorize?client_id=fzjme6a3fotawvs&response_type=code&redirect_uri=https://cunning-goat-l5flx3-dev-ed.lightning.force.com/c/DropboxAPICallback.app"
-        // });
-        // urlEvent.fire();
         location.assign("https://www.dropbox.com/oauth2/authorize?client_id=fzjme6a3fotawvs&response_type=code&redirect_uri=https://cunning-goat-l5flx3-dev-ed.lightning.force.com/c/DropboxAPICallback.app");
+    },
+
+    executeAction: function(component, action, callback) {
+        return new Promise((resolve, reject) => {
+            action.setCallback(this, (response) => {
+                let state = response.getState();
+                if(state === "SUCCESS") {
+                    let result = response.getReturnValue();
+                    resolve(result);
+                } else if(state === "ERROR") {
+                    let errors = response.getError();
+                    if(errors) {
+                        if(errors[0] && errors[0].message) {
+                            reject(Error("Error message: " + errors[0].message));
+                        }
+                    } else{
+                        reject(Error("Unknown error"));
+                    }
+                }
+            });
+            $A.enqueueAction(action);
+        });
     }
 })

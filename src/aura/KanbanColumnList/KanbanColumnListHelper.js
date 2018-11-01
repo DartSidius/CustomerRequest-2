@@ -7,21 +7,23 @@
         action.setParams({
             "currentId": component.get("v.kanbanBoardId")
         });
-        action.setCallback(this, (response) => {
-            let state = response.getState();
-            if(state === "SUCCESS") {
-                let kanbanColumnList = response.getReturnValue();
+        this.executeAction(component, action).then(
+            $A.getCallback((response) => {
+                let kanbanColumnList = response;
                 component.set("v.kanbanColumnList", kanbanColumnList);
 
                 let shareKanbanColumnsEvent = $A.get("e.c:ShareKanbanColumnsEvent");
                 shareKanbanColumnsEvent.setParams({
-                    "KanbanColumns": kanbanColumnList
+                      "KanbanColumns": kanbanColumnList
                 });
                 shareKanbanColumnsEvent.fire();
-            }
-        });
-
-        $A.enqueueAction(action);
+            })
+        )
+            .catch(
+                $A.getCallback((error) => {
+                    alert('An error occurred : ' + error.message);
+                })
+            );
     },
 
     handleCreateNewColumnEvent: function(component, event) {
@@ -31,16 +33,18 @@
         action.setParams({
             "kanbanColumn": kanbanColumn
         });
-        action.setCallback(this, (response) => {
-            let state = response.getState();
-            if(state === "SUCCESS") {
+        this.executeAction(component, action).then(
+            $A.getCallback((response) => {
                 let kanbanColumns = component.get("v.kanbanColumnList");
-                kanbanColumns.push(response.getReturnValue());
+                kanbanColumns.push(response);
                 component.set("v.kanbanColumnList", kanbanColumns);
-            }
-        });
-
-        $A.enqueueAction(action);
+            })
+        )
+            .catch(
+                $A.getCallback((error) => {
+                    alert('An error occurred : ' + error.message);
+                })
+            );
     },
 
     removeDeletedColumnFromList: function(component, event) {
@@ -89,5 +93,27 @@
             "KanbanColumns": component.get("v.kanbanColumnList")
         });
         shareKanbanColumnsEvent.fire();
+    },
+
+    executeAction: function(component, action, callback) {
+        return new Promise((resolve, reject) => {
+                action.setCallback(this, (response) => {
+                    let state = response.getState();
+                    if(state === "SUCCESS") {
+                        let result = response.getReturnValue();
+                        resolve(result);
+                    } else if(state === "ERROR") {
+                        let errors = response.getError();
+                        if(errors) {
+                            if(errors[0] && errors[0].message) {
+                                reject(Error("Error message: " + errors[0].message));
+                            }
+                        } else{
+                            reject(Error("Unknown error"));
+                        }
+                    }
+                });
+            $A.enqueueAction(action);
+            });
     }
 })
