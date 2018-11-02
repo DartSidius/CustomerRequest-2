@@ -17,4 +17,9 @@ public class KanbanFileService {
         return KanbanFileRepository.deleteKanbanFile(kanbanFile);
     }
 
+    public String renameDuplicate(String fileName) {
+        Integer duplicatesCount = [SELECT Count() FROM KanbanFile__c WHERE Name LIKE :fileName+'%'];
+        return duplicatesCount > 0 ? fileName + '(' + duplicatesCount + ')' : fileName;
+    }
+
 }

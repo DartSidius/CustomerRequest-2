@@ -89,7 +89,7 @@
                 )
         };
         fileReader.onerror = function(error) {
-            console.log('Error: ', error);
+            console.log('Error occured: ', error);
         };
     },
 

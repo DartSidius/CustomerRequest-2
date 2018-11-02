@@ -28,6 +28,7 @@ public class KanbanCardService {
     public KanbanFile__c addAttachmentRelatedToKanbanCard(Id kanbanCardId, String fileName, String base64file) {
         ExternalServicesAPI.DropboxAPI dropboxAPI = new ExternalServicesAPI.DropboxAPI();
         String base64Data = EncodingUtil.urlDecode(base64file, 'UTF-8');
+        fileName = new KanbanFileService().renameDuplicate(fileName);
         HttpResponse addNewFileResponse = dropboxAPI.addNewFile(fileName, base64Data);
         if (addNewFileResponse.getStatusCode() == 200) {
             HttpResponse sharedLinkResponse = dropboxAPI.createSharedLink(fileName);
